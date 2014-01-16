@@ -1,0 +1,86 @@
+<MODEL type="tropos">
+    <GROUP id="0" name="Local Authoriry" type="actor">
+        <ENTITY id="1" name="Access health care centre" type="goal">
+            <REFINEMENT type="AND">
+                <ENTITY id="2" name="Forward EPR data to doctors" type="goal"/>
+                <ENTITY id="3" name="Retreive EPR data" type="goal">
+                    <REFINEMENT type="OR">
+                        <ENTITY id="4" name="Retreive dirty data" type="goal">
+                            <REFINEMENT type="AND">
+                                <ENTITY id="5" name="Ask user authorization" type="goal"/>
+                                <ENTITY id="6" name="Insert data" type="goal"/>
+                                <ENTITY id="7" name="Return inserted data" type="goal"/>
+                            </REFINEMENT>
+                        </ENTITY>
+                        <ENTITY id="8" name="Retreive existing data" type="goal">
+                            <REFINEMENT type="OR">
+                                <ENTITY id="9" name="Retreive local data" type="goal"/>
+                                <ENTITY id="10" name="Request data to peer Authority" type="goal"/>
+                                <ENTITY id="11" name="Retreive remote data" type="goal">
+                                    <REFINEMENT type="AND">
+                                        <ENTITY id="12" name="Get certificate Authority" type="goal"/>
+                                        <ENTITY id="13" name="Retreive data" type="goal"/>
+                                    </REFINEMENT>
+                                </ENTITY>
+                            </REFINEMENT>
+                        </ENTITY>
+                    </REFINEMENT>
+                </ENTITY>
+            </REFINEMENT>
+        </ENTITY>
+        <ENTITY id="14" name="Update data locally" type="goal">
+            <REFINEMENT type="OR">
+                <ENTITY id="15" name="Update local data" type="goal"/>
+                <ENTITY id="16" name="Verify user's authorization" type="goal"/>
+            </REFINEMENT>
+        </ENTITY>
+    </GROUP>
+    <GROUP id="17" name="S3" type="actor">
+        <ENTITY id="18" name="Broadcast dirty data" type="goal"/>
+        <ENTITY id="19" name="Update all local" type="task"/>
+        <RELATIONSHIP type="satisfy" value="" entityAid="19" entityBid="18"/>
+    </GROUP>
+    <GROUP id="20" name="S1" type="actor">
+        <ENTITY id="21" name="Search local data" type="goal"/>
+        <ENTITY id="22" name="Search local" type="task"/>
+        <RELATIONSHIP type="satisfy" value="" entityAid="22" entityBid="21"/>
+        <ENTITY id="23" name="Update locally" type="goal"/>
+        <ENTITY id="24" name="Update local" type="task"/>
+        <RELATIONSHIP type="satisfy" value="" entityAid="24" entityBid="23"/>
+    </GROUP>
+    <GROUP id="25" name="S2" type="actor">
+        <ENTITY id="26" name="Get name of certificate Authority" type="goal"/>
+        <ENTITY id="27" name="Get certificate Authority" type="task"/>
+        <RELATIONSHIP type="satisfy" value="" entityAid="27" entityBid="26"/>
+    </GROUP>
+    <GROUP id="28" name="S4" type="actor">
+        <ENTITY id="29" name="Get certificated data" type="goal"/>
+        <ENTITY id="30" name="Search certificate" type="task"/>
+        <RELATIONSHIP type="satisfy" value="" entityAid="30" entityBid="29"/>
+    </GROUP>
+    <GROUP id="31" name="Certificate Authority" type="actor">
+        <ENTITY id="32" name="Provide remote data" type="goal"/>
+    </GROUP>
+    <GROUP id="33" name="Peer local Authority" type="actor"/>
+    <ENTITY id="34" name="Get data" type="goal"/>
+    <GROUP id="35" name="User" type="actor">
+        <ENTITY id="36" name="Health care" type="goal"/>
+    </GROUP>
+    <ENTITY id="37" name="Patient's data" type="resource"/>
+    <RELATIONSHIP type="dependency" value="18" entityAid="6" entityBid="17"/>
+    <RELATIONSHIP type="dependency" value="21" entityAid="9" entityBid="20"/>
+    <RELATIONSHIP type="dependency" value="23" entityAid="15" entityBid="20"/>
+    <RELATIONSHIP type="dependency" value="26" entityAid="13" entityBid="25"/>
+    <RELATIONSHIP type="dependency" value="32" entityAid="13" entityBid="31"/>
+    <RELATIONSHIP type="dependency" value="29" entityAid="28" entityBid="31"/>
+    <RELATIONSHIP type="dependency" value="34" entityAid="10" entityBid="33"/>
+    <RELATIONSHIP type="dependency" value="1" entityAid="36" entityBid="0"/>
+    <RELATIONSHIP type="dependency" value="36" entityAid="6" entityBid="35"/>
+    <RELATIONSHIP type="is-a" value="" entityAid="33" entityBid="0"/>
+
+
+
+
+
+
+</MODEL>
