@@ -1,0 +1,87 @@
+<MODEL type="KAOS">
+<ENTITY id="1" name="Fulfill book order" type="goal">
+	<REFINEMENT type="AND">
+		<ENTITY id="2" name="Quote given" type="goal">
+			<REFINEMENT type="AND">
+				<ENTITY id="3" name="Provide quote" type="requirement"/>
+				<ENTITY id="4" name="Customer requests quote" type="requirement"/>
+			</REFINEMENT>
+		</ENTITY>
+		<ENTITY id="5" name="Customer places order" type="requirement"/>
+		<ENTITY id="6" name="Book available" type="goal">
+			<REFINEMENT type="AND">
+				<ENTITY id="7" name="Book ordered" type="goal">
+					<REFINEMENT type="AND">
+						<ENTITY id="8" name="Contact supplier" type="requirement"/>
+						<ENTITY id="9" name="Supplier provides price" type="requirement"/>				
+						<ENTITY id="10" name="Place order to supplier" type="requirement"/>
+					</REFINEMENT>
+				</ENTITY>
+				<ENTITY id="11" name="Book acquired" type="goal">
+					<REFINEMENT type="AND">
+                        <ENTITY id="12" name="Supplier ships books" type="requirement"/>
+						<ENTITY id="13" name="Books arrive at warehouse" type="requirement"/>				
+					</REFINEMENT>
+				</ENTITY>
+			</REFINEMENT>
+		</ENTITY>
+		<ENTITY id="14" name="Books delivered" type="goal">
+			<REFINEMENT type="AND">
+				<ENTITY id="15" name="Deliver to courier" type="requirement"/>
+				<ENTITY id="16" name="Courier delivers to customers" type="requirement"/>
+				<ENTITY id="17" name="Handle receipt" type="goal">
+					<REFINEMENT type="OR">
+						<ENTITY id="18" name="Don’t place receipt in shipment" type="requirement"/>
+						<ENTITY id="19" name="Place receipt in shipment" type="requirement"/>
+					</REFINEMENT>
+				</ENTITY>
+			</REFINEMENT>
+		</ENTITY>
+		<ENTITY id="20" name="Payment received" type="goal">
+			<REFINEMENT type="OR">
+				<ENTITY id="21" name="Payment via credit card" type="goal">
+					<REFINEMENT type="AND">
+						<ENTITY id="22" name="Get credit card number" type="requirement"/>
+						<ENTITY id="23" name="Get credit card authorization" type="requirement"/>
+                        <ENTITY id="24" name="Charge credit card" type="requirement"/>
+					</REFINEMENT>
+				</ENTITY>
+                <ENTITY id="25" name="Payment via money order" type="goal">
+					<REFINEMENT type="AND">
+						<ENTITY id="26" name="Customer issues money order" type="requirement"/>
+						<ENTITY id="27" name="Customer sends money order" type="requirement"/>
+						<ENTITY id="28" name="Receive money order" type="requirement"/>
+					</REFINEMENT>
+				</ENTITY>
+			</REFINEMENT>
+		</ENTITY>
+		<ENTITY id="29" name="Receipt sent" type="goal">
+			<REFINEMENT type="OR">
+				<ENTITY id="30" name="Send electronic receipt" type="requirement"/>
+				<ENTITY id="31" name="Send printed receipt" type="goal">
+					<REFINEMENT type="AND">
+						<ENTITY id="32" name="Print receipt" type="requirement"/>
+						<ENTITY id="33" name="Separate receipt sent" type="goal">
+							<REFINEMENT type="AND">
+								<ENTITY id="34" name="Submit receipt" type="requirement"/>
+								<ENTITY id="35" name="Deliver receipt" type="requirement"/>
+							</REFINEMENT>
+						</ENTITY>
+					</REFINEMENT>
+				</ENTITY>
+			</REFINEMENT>
+		</ENTITY>
+	</REFINEMENT>
+</ENTITY>
+<ENTITY id="36" name="Happy customer" type="softgoal"/>
+<ENTITY id="37" name="Reduce transaction cost" type="softgoal"/>
+<ENTITY id="38" name="Payment traceability" type="softgoal"/>
+<ENTITY id="39" name="Use robust legal documentation" type="softgoal"/>
+<RELATIONSHIP type="contribution" value="++" entityAid="36" entityBid="21"/>
+<RELATIONSHIP type="contribution" value="++" entityAid="37" entityBid="25"/>
+<RELATIONSHIP type="contribution" value="--" entityAid="37" entityBid="31"/>
+<RELATIONSHIP type="contribution" value="++" entityAid="38" entityBid="21"/>
+<RELATIONSHIP type="contribution" value="--" entityAid="38" entityBid="25"/>
+<RELATIONSHIP type="contribution" value="++" entityAid="39" entityBid="25"/>
+<RELATIONSHIP type="contribution" value="++" entityAid="39" entityBid="31"/>
+</MODEL>
