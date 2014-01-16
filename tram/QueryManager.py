@@ -48,4 +48,4 @@ class QueryManager(object):
         
 m = ModelIndex('./')        
 q = QueryManager(m)
-q.issueQuery("send and receive money")
+q.issueQuery("receive access retrieve authority")
