@@ -3,9 +3,12 @@ Created on Jan 16, 2014
 
 @author: alessioferrari
 '''
-from RequirementsModel import RequirementsModel
+from RequirementsModel import RequirementsModel, STEM_STRING
 from os import path
 import os
+
+
+
 
 class ModelIndex(object):
     '''
@@ -15,28 +18,30 @@ class ModelIndex(object):
     '''
     
 
-    def __init__(self, modelDirectory):
+    def __init__(self, modelDirectory, indexType = STEM_STRING):
         '''
         Constructor.
         @param modelDirectory: directory where the XML models are placed
         '''
+        self.indexType = indexType
         self.dictionary = self.__buildIndex(modelDirectory)
         
+        
     
-    def __addModel(self, modelId, modelWords, dictionary):
+    def __addModel(self, modelId, modelKeys, dictionary):
         '''
-        This function adds a model to the dictionary
+        This function adds a model to a dictionary
         @param modelId: unique string identifying the model
-        @param modelWords: words in the model
+        @param modelKeys: keywords or entire terms in the model
         @param dictionary: the dictionary   
         '''
-        for modelWord in modelWords:
-            if not dictionary.has_key(modelWord):
+        for modelKey in modelKeys:
+            if not dictionary.has_key(modelKey):
                 l = list()
                 l.append(modelId) 
-                dictionary[modelWord] = l
+                dictionary[modelKey] = l
             else:
-                dictionary[modelWord].append(modelId) 
+                dictionary[modelKey].append(modelId) 
     
     def __buildIndex(self, modelDirectory):
         '''
@@ -53,8 +58,8 @@ class ModelIndex(object):
             if dirFile.endswith(".xml"):  
                 requirementsModel = RequirementsModel(dirFile, dirFile)
                 modelId = requirementsModel.getModelID()
-                modelWords = requirementsModel.getModelWords()
-                self.__addModel(modelId, modelWords, dictionary)
+                modelKeys = requirementsModel.getModelKeys(self.indexType)
+                self.__addModel(modelId, modelKeys, dictionary)
         
         return dictionary
     
@@ -68,5 +73,5 @@ class ModelIndex(object):
             return None
         
         
-#m = ModelIndex('./')
-#m.searchModels('quot')
+m = ModelIndex('./', "WORD")
+print m.searchModels('quot')

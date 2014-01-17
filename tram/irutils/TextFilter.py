@@ -86,12 +86,20 @@ class TextFilter(object):
         executes all the filter functions on @param string_text 
         @param string_text: input text
         """
+        filtered_sentence = self.filter_all_except_stem(string_text)
+        filtered_sentence = self.stem_words(filtered_sentence)
+        
+        return filtered_sentence
+    
+    def filter_all_except_stem(self, string_text):
+        """
+        executes all the filter functions on @param string_text 
+        @param string_text: input text
+        """
         sentence_no_punct = self.remove_punct(string_text)
         sentence_no_single_char = self.remove_single_char(sentence_no_punct)
         sentence_no_stopwords = self.remove_stopwords(sentence_no_single_char)
-        filtered_sentence = self.stem_words(sentence_no_stopwords)
-        filtered_sentence = self.lower_all(filtered_sentence)
+        filtered_sentence = self.lower_all(sentence_no_stopwords)
         
         return filtered_sentence
-
 
