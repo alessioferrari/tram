@@ -4,7 +4,6 @@ Created on Jan 16, 2014
 @author: alessioferrari
 '''
 from RequirementsModel import RequirementsModel, STEM_STRING
-from RequirementsModelFactory import RequirementsModelFactory
 
 
 

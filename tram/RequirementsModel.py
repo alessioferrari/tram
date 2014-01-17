@@ -5,9 +5,9 @@ Created on Jan 16, 2014
 '''
 
 from irutils.TextFilter import TextFilter
+from nltk.tokenize.treebank import TreebankWordTokenizer
 import sys
 import xml.etree.ElementTree as ET
-from nltk.tokenize.treebank import TreebankWordTokenizer
 
 '''
 These are the constants to distinguish the different types of information
@@ -34,6 +34,8 @@ class RequirementsModel(object):
         self.textFilter = TextFilter()
         self.wordTokenizer = TreebankWordTokenizer()
         
+        self.tree =  ET.parse(self.path)
+        
         self.modelGoals = self.__loadModelGoals()
         self.modelWords = self.__loadModelWords()
         self.modelStems = self.__loadModelStems()
@@ -43,9 +45,8 @@ class RequirementsModel(object):
         The function loads the goal names included in the model
         and returns a list with all the goals of the model.
         The goals names are stored as lowercase goals
-        ''' 
-        tree = ET.parse(self.path)
-        root = tree.getroot()
+        '''  
+        root = self.tree.getroot()
         goalNames = list()
 
         for child in root.iter('ENTITY'):
@@ -93,7 +94,24 @@ class RequirementsModel(object):
                     tokenizedStems[stem] = tokenizedStems[stem] + 1
                     
         return tokenizedStems
-            
+    
+    def loadModelSubtreeNames(self):
+        '''
+        The function scans the part of the XML file where we have GROUPS.
+        When we find a group, we shall find also the names of any node 
+        that is not a leaf: each node that is not a leaf is the head 
+        of a subtree. The function stores the names of all the subtree roots,
+        together with the ID of the subtree root (i.e., the id of the goal).
+        
+        @todo: we shall consider to use a threshold for the depth that
+        we consider adequate for considering a sub-tree as a function. For example, if 
+        the distance to a leaf is lower than 2, the node might not be a function
+        '''
+        root = self.tree.getroot()
+        for group in root.iter('GROUP'):
+            for e in group.iter('ENTITY'): #a left-depth first visit is performed to get the names
+                print e.attrib['name']
+            print '\n'
         
     def __getModelStems(self):
         return self.modelStems.keys()
@@ -114,3 +132,6 @@ class RequirementsModel(object):
             return self.__getModelWords()
         if keyType == GOAL_STRING:
             return self.__getModelGoals()
+
+#r = RequirementsModel("ingolfo2011nomos.xml","ingolfo2011nomos.xml")
+#r.loadModelSubtreeNames()

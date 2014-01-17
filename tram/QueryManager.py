@@ -3,7 +3,6 @@ Created on Jan 16, 2014
 
 @author: alessioferrari
 '''
-from ModelIndex import ModelIndex
 from ModelIndexManager import ModelIndexManager
 from RequirementsModel import STEM_STRING
 from RequirementsModelLoader import RequirementsModelLoader

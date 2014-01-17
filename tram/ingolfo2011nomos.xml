@@ -3,23 +3,23 @@
         <ENTITY id="1" name="Access health care centre" type="goal">
             <REFINEMENT type="AND">
                 <ENTITY id="2" name="Forward EPR data to doctors" type="goal"/>
-                <ENTITY id="3" name="Retreive EPR data" type="goal">
+                <ENTITY id="3" name="Retrieve EPR data" type="goal">
                     <REFINEMENT type="OR">
-                        <ENTITY id="4" name="Retreive dirty data" type="goal">
+                        <ENTITY id="4" name="Retrieve dirty data" type="goal">
                             <REFINEMENT type="AND">
                                 <ENTITY id="5" name="Ask user authorization" type="goal"/>
                                 <ENTITY id="6" name="Insert data" type="goal"/>
                                 <ENTITY id="7" name="Return inserted data" type="goal"/>
                             </REFINEMENT>
                         </ENTITY>
-                        <ENTITY id="8" name="Retreive existing data" type="goal">
+                        <ENTITY id="8" name="Retrieve existing data" type="goal">
                             <REFINEMENT type="OR">
-                                <ENTITY id="9" name="Retreive local data" type="goal"/>
+                                <ENTITY id="9" name="Retrieve local data" type="goal"/>
                                 <ENTITY id="10" name="Request data to peer Authority" type="goal"/>
-                                <ENTITY id="11" name="Retreive remote data" type="goal">
+                                <ENTITY id="11" name="Retrieve remote data" type="goal">
                                     <REFINEMENT type="AND">
                                         <ENTITY id="12" name="Get certificate Authority" type="goal"/>
-                                        <ENTITY id="13" name="Retreive data" type="goal"/>
+                                        <ENTITY id="13" name="Retrieve data" type="goal"/>
                                     </REFINEMENT>
                                 </ENTITY>
                             </REFINEMENT>
