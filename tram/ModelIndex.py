@@ -4,8 +4,7 @@ Created on Jan 16, 2014
 @author: alessioferrari
 '''
 from RequirementsModel import RequirementsModel, STEM_STRING
-from os import path
-import os
+from RequirementsModelFactory import RequirementsModelFactory
 
 
 
@@ -18,14 +17,14 @@ class ModelIndex(object):
     '''
     
 
-    def __init__(self, modelDirectory, indexType = STEM_STRING):
+    def __init__(self, requirementsModelLoader, indexType = STEM_STRING):
         '''
         Constructor.
-        @param modelDirectory: directory where the XML models are placed
+        @param requirementsModelLoader: classes that stores all the models in memory
         '''
         self.indexType = indexType
-        self.dictionary = self.__buildIndex(modelDirectory)
-        
+        self.requirementsModelLoader = requirementsModelLoader
+        self.dictionary = self.__buildIndex(self.requirementsModelLoader)
         
     
     def __addModel(self, modelId, modelKeys, dictionary):
@@ -43,23 +42,20 @@ class ModelIndex(object):
             else:
                 dictionary[modelKey].append(modelId) 
     
-    def __buildIndex(self, modelDirectory):
+    def __buildIndex(self, requirementsModelLoader):
         '''
-        This function scans the directory where the models are placed
-        and build the index. For each word found in a model, 
+        This function scans the models loaded in memory
+        and builds the index. For each word found in a model, 
         the word is added to the dictionary. 
         If the entry for the word does not exist, a new entry is created.
         '''
         
         dictionary = dict()
 
-        os.chdir(modelDirectory)
-        for dirFile in os.listdir("."):
-            if dirFile.endswith(".xml"):  
-                requirementsModel = RequirementsModel(dirFile, dirFile)
-                modelId = requirementsModel.getModelID()
-                modelKeys = requirementsModel.getModelKeys(self.indexType)
-                self.__addModel(modelId, modelKeys, dictionary)
+        for requirementsModel in requirementsModelLoader.getModels():  
+            modelId = requirementsModel.getModelID()
+            modelKeys = requirementsModel.getModelKeys(self.indexType)
+            self.__addModel(modelId, modelKeys, dictionary)
         
         return dictionary
     
@@ -72,6 +68,6 @@ class ModelIndex(object):
         else: 
             return None
         
-        
-m = ModelIndex('./', "WORD")
-print m.searchModels('quot')
+#f = RequirementsModelLoader('./')        
+#m = ModelIndex(f, "STEM")
+#print m.searchModels('quot')

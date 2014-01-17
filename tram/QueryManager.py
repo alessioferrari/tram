@@ -4,6 +4,9 @@ Created on Jan 16, 2014
 @author: alessioferrari
 '''
 from ModelIndex import ModelIndex
+from ModelIndexManager import ModelIndexManager
+from RequirementsModel import STEM_STRING
+from RequirementsModelLoader import RequirementsModelLoader
 from irutils.TextFilter import TextFilter
 from nltk.tokenize.treebank import TreebankWordTokenizer
 
@@ -15,12 +18,12 @@ class QueryManager(object):
     '''
 
 
-    def __init__(self, modelIndex):
+    def __init__(self, modelIndexManager):
         '''
         @param modelIndex: reference to the place where the models are indexed
         '''
         self.textFilter = TextFilter()
-        self.modelIndex = modelIndex
+        self.modelIndexManager = modelIndexManager
         self.wordTokenizer = TreebankWordTokenizer()
         
     def __parseQuery(self, queryString):
@@ -41,11 +44,12 @@ class QueryManager(object):
         @param queryString: the specification query in the form of a string
         @return: a list of QueryResult objects.
         '''
-        words = self.__parseQuery(queryString)
-        for w in words:
-            models = self.modelIndex.searchModels(w)
-            print w, models
-        
-m = ModelIndex('./')        
-q = QueryManager(m)
+        stems = self.__parseQuery(queryString)
+        for stem in stems:
+            models = self.modelIndexManager.searchModels(stem, STEM_STRING)
+            print stem, models
+
+f = RequirementsModelLoader('./')  
+modelIndexManager = ModelIndexManager(f)        
+q = QueryManager(modelIndexManager)
 q.issueQuery("receive access retrieve authority")

@@ -15,6 +15,7 @@ that can be used from the model, for example to build the index
 '''
 STEM_STRING = "STEM"
 WORD_STRING = "WORD"
+GOAL_STRING = "GOAL"
 
 class RequirementsModel(object):
     '''
@@ -33,14 +34,15 @@ class RequirementsModel(object):
         self.textFilter = TextFilter()
         self.wordTokenizer = TreebankWordTokenizer()
         
+        self.modelGoals = self.__loadModelGoals()
         self.modelWords = self.__loadModelWords()
         self.modelStems = self.__loadModelStems()
         
-    def __loadModelWords(self):
+    def __loadModelGoals(self):
         '''
-        The function loads the stems included in the model
-        and returns a dictionary with all the stems of the model
-        and their frequency
+        The function loads the goal names included in the model
+        and returns a list with all the goals of the model.
+        The goals names are stored as lowercase goals
         ''' 
         tree = ET.parse(self.path)
         root = tree.getroot()
@@ -48,18 +50,29 @@ class RequirementsModel(object):
 
         for child in root.iter('ENTITY'):
             if child.attrib['type'] == 'goal': 
-                goalNames.append(child.attrib['name']) 
+                goalNames.append(self.textFilter.lower_all(child.attrib['name'])) 
+                    
+        return goalNames
+        
+        
+    def __loadModelWords(self):
+        '''
+        The function loads the words included in the model
+        and returns a dictionary with all the words of the model
+        and their frequency
+        '''
                
         tokenizedWords = dict()
 
-        for name in goalNames:
-            nameFiltered = self.textFilter.filter_all_except_stem(name)
-            words = self.wordTokenizer.tokenize(nameFiltered)
-            for word in words:
-                if not tokenizedWords.has_key(word): 
-                    tokenizedWords[word] = 1
-                else:
-                    tokenizedWords[word] = tokenizedWords[word] + 1
+        if not self.modelGoals == None:
+            for name in self.modelGoals:
+                nameFiltered = self.textFilter.filter_all_except_stem(name)
+                words = self.wordTokenizer.tokenize(nameFiltered)
+                for word in words:
+                    if not tokenizedWords.has_key(word): 
+                        tokenizedWords[word] = 1
+                    else:
+                        tokenizedWords[word] = tokenizedWords[word] + 1
                     
         return tokenizedWords
         
@@ -88,6 +101,9 @@ class RequirementsModel(object):
     def __getModelWords(self):
         return self.modelWords.keys()
     
+    def __getModelGoals(self):
+        return self.modelGoals
+    
     def getModelID(self):
         return self.modelID
     
@@ -96,3 +112,5 @@ class RequirementsModel(object):
             return self.__getModelStems()
         if keyType == WORD_STRING:
             return self.__getModelWords()
+        if keyType == GOAL_STRING:
+            return self.__getModelGoals()
