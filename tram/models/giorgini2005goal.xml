@@ -1,0 +1,75 @@
+<MODEL type="tropos">
+    <GROUP id="0" name="Media" type="actor">
+        <ENTITY id="1" name="Manage internet shop" type="goal">
+            <REFINEMENT type="AND">
+                <ENTITY id="2" name="Manage internet orders" type="goal"/>
+                <ENTITY id="3" name="Manage item shearching" type="goal">
+                    <REFINEMENT type="OR">
+                        <ENTITY id="4" name="DB quering" type="goal"/>
+                        <ENTITY id="5" name="Catalogue consult" type="goal"/>
+                    </REFINEMENT>
+                </ENTITY>
+                <ENTITY id="6" name="Produce statistics" type="goal"/>
+                <ENTITY id="7" name="Adaptation" type="goal">
+                    <REFINEMENT type="AND">
+                        <ENTITY id="8" name="System evolution" type="goal"/>
+                        <ENTITY id="9" name="Update catalogue" type="goal"/>
+                        <ENTITY id="10" name="Monitoring system" type="goal"/>
+                        <ENTITY id="11" name="Update GUI" type="goal"/>
+                    </REFINEMENT>
+                </ENTITY>
+            </REFINEMENT>
+        </ENTITY>
+        <ENTITY id="13" name="Shopping cart" type="goal">
+            <REFINEMENT type="AND">
+                <ENTITY id="14" name="Add item" type="goal"/>
+                <ENTITY id="15" name="Select items" type="goal">
+                    <REFINEMENT type="OR">
+                        <ENTITY id="16" name="Pick available items" type="goal"/>
+                        <ENTITY id="17" name="Pre-order non available items" type="goal"/>
+                    </REFINEMENT>
+                </ENTITY>
+                <ENTITY id="18" name="Get identification details" type="goal">
+                    <REFINEMENT type="OR">
+                        <ENTITY id="19" name="Classic communication handled" type="goal"/>
+                        <ENTITY id="20" name="Internet managed" type="goal">
+                            <REFINEMENT type="OR">
+                                <ENTITY id="21" name="Secure form order" type="goal"/>
+                                <ENTITY id="22" name="Standard form order" type="goal"/>
+                            </REFINEMENT>
+                        </ENTITY>
+                    </REFINEMENT>
+                </ENTITY>
+                <ENTITY id="23" name="Checkout" type="goal"/>
+            </REFINEMENT>
+        </ENTITY>
+        <ENTITY id="24" name="Perform privacy control" type="goal"/>
+        <ENTITY id="25" name="Check authentication" type="goal"/>
+        <ENTITY id="26" name="Check information flow" type="goal"/>
+        <ENTITY id="27" name="Check access control" type="goal"/>
+        <ENTITY id="28" name="Privacy" type="softgoal"/>
+        <ENTITY id="29" name="Security" type="softgoal"/>
+        <ENTITY id="30" name="Integrity" type="softgoal"/>
+        <ENTITY id="31" name="Availability" type="softgoal"/>
+        <ENTITY id="32" name="Adaptability" type="softgoal"/>
+        <ENTITY id="33" name="Easy to use" type="softgoal"/>
+        <ENTITY id="34" name="Usability" type="softgoal"/>
+        <RELATIONSHIP type="contribution" value="+" entityAid="25" entityBid="24"/>
+        <RELATIONSHIP type="contribution" value="+" entityAid="26" entityBid="24"/>
+        <RELATIONSHIP type="contribution" value="+" entityAid="27" entityBid="24"/>
+        <RELATIONSHIP type="contribution" value="++" entityAid="24" entityBid="28 "/>
+        <RELATIONSHIP type="contribution" value="+" entityAid="21" entityBid="28"/>
+        <RELATIONSHIP type="contribution" value="-" entityAid="22" entityBid="28"/>
+        <RELATIONSHIP type="contribution" value="++" entityAid="13" entityBid="1"/>
+        <RELATIONSHIP type="contribution" value="+" entityAid="28" entityBid="29"/>
+        <RELATIONSHIP type="contribution" value="+" entityAid="30" entityBid="29"/>
+        <RELATIONSHIP type="contribution" value="+" entityAid="31" entityBid="29"/>
+        <RELATIONSHIP type="contribution" value="+" entityAid="29" entityBid="34"/>
+        <RELATIONSHIP type="contribution" value="+" entityAid="32" entityBid="34"/>
+        <RELATIONSHIP type="contribution" value="+" entityAid="33" entityBid="34"/>
+        <RELATIONSHIP type="contribution" value="-" entityAid="4" entityBid="30"/>
+        <RELATIONSHIP type="contribution" value="+" entityAid="10" entityBid="30"/>
+        <RELATIONSHIP type="contribution" value="+" entityAid="4" entityBid="33"/>
+        <RELATIONSHIP type="contribution" value="+" entityAid="5" entityBid="33"/>
+    </GROUP>
+</MODEL>

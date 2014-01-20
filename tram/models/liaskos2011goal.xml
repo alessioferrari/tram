@@ -1,0 +1,59 @@
+<MODEL type="KAOS">
+<ENTITY id="1" name="Shop on-line" type="goal">
+	<REFINEMENT type="AND">
+        <ENTITY id="2" name="Login" type="requirement"/>
+        <ENTITY id="3" name="Use cart" type="requirement"/>
+		<ENTITY id="4" name="Browse items" type="goal">
+			<REFINEMENT type="AND">
+				<ENTITY id="5" name="Learn about items" type="goal">
+                    <REFINEMENT type="AND">
+                        <ENTITY id="6" name="Consult printed catalog" type="requirement"/>
+                        <ENTITY id="7" name="View items" type="goal">
+                            <REFINEMENT type="AND">
+                                <ENTITY id="8" name="View prices" type="requirement"/>
+                                <ENTITY id="9" name="Change ordering" type="requirement"/>
+                                <ENTITY id="10" name="View product image " type="requirement"/>
+                                <ENTITY id="11" name="View basic product info" type="requirement"/>
+                            </REFINEMENT>
+                        </ENTITY>
+                        <ENTITY id="12" name="Use external web site" type="requirement"/>
+                    </REFINEMENT>
+                </ENTITY>
+                <ENTITY id="13" name="View and post comments" type="goal">
+                    <REFINEMENT type="AND">
+                        <ENTITY id="13" name="Add comment" type="requirement"/>
+                        <ENTITY id="14" name="View comments" type="requirement"/>
+                    </REFINEMENT>
+                </ENTITY>
+            </REFINEMENT>
+        </ENTITY>
+        <ENTITY id="15" name="Logout" type="requirement"/>
+		<ENTITY id="16" name="Checkout" type="goal">
+			<REFINEMENT type="AND">
+                <ENTITY id="17" name="Review order" type="requirement"/>
+				<ENTITY id="18" name="Provide address info" type="goal">
+                    <REFINEMENT type="OR">
+                        <ENTITY id="19" name="Provide new address info" type="requirement"/>
+                        <ENTITY id="20" name="Use stored address info" type="requirement"/>
+                    </REFINEMENT>
+                </ENTITY>
+                <ENTITY id="21" name="Provide cc info" type="requirement"/>
+                <ENTITY id="22" name="Confirm check out" type="requirement"/>
+			</REFINEMENT>
+        </ENTITY>
+    </REFINEMENT>
+</ENTITY>
+<RELATIONSHIP type="pre" value="" entityAid="2" entityBid="15"/>
+<RELATIONSHIP type="pre" value="" entityAid="3" entityBid="16"/>
+<RELATIONSHIP type="pre" value="" entityAid="5" entityBid="3"/>
+<RELATIONSHIP type="pre" value="" entityAid="11" entityBid="8"/>
+<RELATIONSHIP type="pre" value="" entityAid="11" entityBid="9"/>
+<RELATIONSHIP type="pre" value="" entityAid="11" entityBid="10"/>
+<RELATIONSHIP type="pre" value="" entityAid="11" entityBid="13"/>
+<RELATIONSHIP type="pre" value="" entityAid="17" entityBid="18"/>
+<RELATIONSHIP type="pre" value="" entityAid="17" entityBid="21"/>
+<RELATIONSHIP type="pre" value="" entityAid="18" entityBid="22"/>
+<RELATIONSHIP type="pre" value="" entityAid="21" entityBid="22"/>
+
+
+</MODEL>

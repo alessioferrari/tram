@@ -1,0 +1,150 @@
+<MODEL type="KAOS">
+<ENTITY id="1" name="Supply public transport service" type="goal">
+	<REFINEMENT type="AND">
+		<ENTITY id="2" name="Manage financial budget" type="goal">
+			<REFINEMENT type="AND">
+				<ENTITY id="3" name="Obtain funds" type="requirement"/>
+                <ENTITY id="4" name="Manage services' cost" type="goal">
+                    <REFINEMENT type="AND">
+                        <ENTITY id="5" name="Cover services' costs" type="goal">
+                            <REFINEMENT type="AND">
+                                <ENTITY id="6" name="Use external funds" type="requirement"/>
+                                <ENTITY id="7" name="Use profits" type="requirement"/>
+                            </REFINEMENT>
+                        </ENTITY>
+                        <ENTITY id="8" name="Invest in the service" type="goal">
+                            <REFINEMENT type="OR">
+                                <ENTITY id="9" name="Improve old services" type="requirement"/>
+                                <ENTITY id="10" name="Provide new services" type="requirement"/>
+                            </REFINEMENT>
+                        </ENTITY>
+                    </REFINEMENT>
+                </ENTITY>
+                <ENTITY id="11" name="Manage profits" type="requirement"/>
+            </REFINEMENT>
+        </ENTITY>
+		<ENTITY id="12" name="Sell tickets" type="goal">
+			<REFINEMENT type="AND">
+				<ENTITY id="13" name="Decide services' costs" type="goal">
+					<REFINEMENT type="AND">
+						<ENTITY id="14" name="Estimate services' costs" type="requirement"/>
+						<ENTITY id="15" name="Evaluate alternative resources" type="requirement"/>
+						<ENTITY id="16" name="Define profits to reach" type="requirement"/>
+					</REFINEMENT>
+				</ENTITY>
+                <ENTITY id="17" name="Decide sale stategy" type="requirement"/>
+				<ENTITY id="18" name="Avoid fraud" type="goal">
+					<REFINEMENT type="AND">
+                        <ENTITY id="19" name="Provide tickets" type="goal">
+                            <REFINEMENT type="AND">
+                                <ENTITY id="20" name="Estimate sale places" type="requirement"/>
+                                <ENTITY id="21" name="Add sale points on the path" type="requirement"/>
+                            </REFINEMENT>
+                        </ENTITY>
+						<ENTITY id="22" name="Verify tickets" type="requirement"/>
+					</REFINEMENT>
+				</ENTITY>
+			</REFINEMENT>
+		</ENTITY>
+		<ENTITY id="23" name="Transport user to destination" type="goal">
+			<REFINEMENT type="AND">
+				<ENTITY id="24" name="Connect point" type="goal">
+					<REFINEMENT type="AND">
+                        <ENTITY id="25" name="Manage mobility" type="requirement"/>
+						<ENTITY id="26" name="Build infrastructure" type="requirement"/>
+					</REFINEMENT>
+				</ENTITY>
+                <ENTITY id="27" name="Use means of transport" type="goal">
+					<REFINEMENT type="AND">
+						<ENTITY id="28" name="Build means of transport" type="goal">
+                            <REFINEMENT type="AND">
+                                <ENTITY id="29" name="Organize public competition" type="requirement"/>
+                                <ENTITY id="30" name="Choose company" type="requirement"/>
+                            </REFINEMENT>
+                        </ENTITY>
+						<ENTITY id="31" name="Manatain means of transport" type="goal">
+                            <REFINEMENT type="AND">
+                                <ENTITY id="32" name="Clean means of transport" type="requirement"/>
+                                <ENTITY id="33" name="Supply means of transport" type="requirement"/>
+                                <ENTITY id="34" name="Repair means of transport" type="requirement"/>
+                                <ENTITY id="35" name="Protect means of transport" type="requirement"/>
+                            </REFINEMENT>
+                        </ENTITY>
+					</REFINEMENT>
+				</ENTITY>
+                <ENTITY id="36" name="Serve path" type="goal">
+					<REFINEMENT type="AND">
+						<ENTITY id="37" name="Plan transport service " type="goal">
+                            <REFINEMENT type="AND">
+                                <ENTITY id="38" name="Timetable" type="requirement"/>
+                                <ENTITY id="39" name="Define path (Favor public traffic)" type="goal">
+                                    <REFINEMENT type="OR">
+                                        <ENTITY id="40" name="Create reserved lanes" type="requirement"/>
+                                        <ENTITY id="41" name="Regulate reserved lanes" type="requirement"/>
+                                        <ENTITY id="42" name="Public services in limited areas" type="requirement"/>
+                                    </REFINEMENT>
+                                </ENTITY>
+                            </REFINEMENT>
+                        </ENTITY>
+                        <ENTITY id="43" name="Make public service available" type="requirement"/>
+                    </REFINEMENT>
+				</ENTITY>
+			</REFINEMENT>
+		</ENTITY>
+		<ENTITY id="44" name="Protect users" type="goal">
+			<REFINEMENT type="AND">
+				<ENTITY id="45" name="Guarantee drivers' capability" type="goal">
+					<REFINEMENT type="AND">
+						<ENTITY id="46" name="Check drivers' attitudes" type="requirement"/>
+						<ENTITY id="47" name="Check drivers' capabilities" type="requirement"/>
+                        <ENTITY id="48" name="Check drivers' health" type="requirement"/>
+					</REFINEMENT>
+				</ENTITY>
+                <ENTITY id="49" name="Guarantee users behavior" type="goal">
+					<REFINEMENT type="OR">
+						<ENTITY id="50" name="Provide rules" type="requirement"/>
+						<ENTITY id="51" name="Promote respect for the law" type="requirement"/>
+					</REFINEMENT>
+				</ENTITY>
+                <ENTITY id="52" name="Protect user health" type="goal">
+					<REFINEMENT type="AND">
+						<ENTITY id="53" name="Forbid smoking" type="requirement"/>
+						<ENTITY id="54" name="Ensure structures' integrity" type="requirement"/>
+                        <ENTITY id="55" name="Protect from pollution" type="requirement"/>
+					</REFINEMENT>
+                </ENTITY>
+			</REFINEMENT>
+		</ENTITY>
+		<ENTITY id="56" name="Improve Quality of life" type="goal">
+			<REFINEMENT type="OR">
+                <ENTITY id="57" name="GMonitor pollution" type="goal">
+					<REFINEMENT type="OR">
+						<ENTITY id="58" name="Use special means of transport" type="requirement"/>
+                        <ENTITY id="59" name="respect rules" type="requirement"/>
+					</REFINEMENT>
+				</ENTITY>
+				<ENTITY id="60" name="Provide comfort" type="goal">
+					<REFINEMENT type="OR">
+						<ENTITY id="61" name="Provide acoustic comfort" type="requirement"/>
+                        <ENTITY id="62" name="Provide visual comfort" type="requirement"/>
+                        <ENTITY id="63" name="Provide postural comfort" type="requirement"/>
+                        <ENTITY id="64" name="Provide climate comfort" type="requirement"/>
+					</REFINEMENT>
+				</ENTITY>
+			</REFINEMENT>
+		</ENTITY>
+	</REFINEMENT>
+</ENTITY>
+<ENTITY id="65" name="Satisfy users" type="softgoal"/>
+<ENTITY id="66" name="Minimiza cost per user" type="softgoal"/>
+<ENTITY id="67" name="Increase profits" type="softgoal"/>
+<RELATIONSHIP type="contribution" value="++" entityAid="8" entityBid="65"/>
+<RELATIONSHIP type="contribution" value="--" entityAid="8" entityBid="66"/>
+<RELATIONSHIP type="contribution" value="--" entityAid="8" entityBid="67"/>
+<RELATIONSHIP type="contribution" value="++" entityAid="12" entityBid="67"/>
+<RELATIONSHIP type="contribution" value="++" entityAid="15" entityBid="66"/>
+<RELATIONSHIP type="contribution" value="++" entityAid="44" entityBid="65"/>
+<RELATIONSHIP type="contribution" value="++" entityAid="56" entityBid="65"/>
+<RELATIONSHIP type="contribution" value="--" entityAid="60" entityBid="66"/>
+
+</MODEL>

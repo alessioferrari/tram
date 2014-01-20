@@ -1,0 +1,46 @@
+<MODEL type="KAOS">
+<ENTITY id="1" name="Meeting scheduled" type="goal">
+	<REFINEMENT type="AND">
+		<ENTITY id="2" name="Constraints gathered" type="goal">
+			<REFINEMENT type="OR">
+				<ENTITY id="3" name="Request based" type="goal">
+                    <REFINEMENT type="OR">
+                        <ENTITY id="4" name="Constraints reqested by email" type="goal">
+                            <REFINEMENT type="AND">
+                                <ENTITY id="5" name="Send invitation" type="requirement"/>
+                                <ENTITY id="6" name="Receive Responses" type="requirement"/>
+                            </REFINEMENT>
+                        </ENTITY>
+                        <ENTITY id="7" name="Call everybody" type="requirement"/>
+                    </REFINEMENT>
+                </ENTITY>
+                <ENTITY id="8" name="Gather constraints automatically" type="requirement"/>
+			</REFINEMENT>
+        </ENTITY>
+		<ENTITY id="9" name="Suitable slot found" type="goal">
+			<REFINEMENT type="OR">
+                <ENTITY id="10" name="System to find slot" type="requirement"/>
+                <ENTITY id="11" name="Human to select slot" type="requirement"/>
+            </REFINEMENT>
+        </ENTITY>
+        <ENTITY id="12" name="Room arranged" type="goal">
+			<REFINEMENT type="AND">
+				<ENTITY id="13" name="Room requqested" type="goal">
+                    <REFINEMENT type="OR">
+                        <ENTITY id="14" name="Theater room" type="requirement"/>
+                        <ENTITY id="15" name="Meeting room" type="requirement"/>
+                    </REFINEMENT>
+                </ENTITY>
+                <ENTITY id="16" name="Facilities confirm room" type="requirement"/>
+			</REFINEMENT>
+        </ENTITY>
+        <ENTITY id="17" name="Announce meeting" type="requirement"/>
+    </REFINEMENT>
+</ENTITY>
+<RELATIONSHIP type="pre" value="" entityAid="2" entityBid="9"/>
+<RELATIONSHIP type="pre" value="" entityAid="9" entityBid="12"/>
+<RELATIONSHIP type="pre" value="" entityAid="9" entityBid="17"/>
+<RELATIONSHIP type="pre" value="" entityAid="13" entityBid="16"/>
+<RELATIONSHIP type="pre" value="" entityAid="5" entityBid="6"/>
+
+</MODEL>

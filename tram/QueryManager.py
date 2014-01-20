@@ -48,7 +48,7 @@ class QueryManager(object):
             models = self.modelIndexManager.searchModels(stem, STEM_STRING)
             print stem, models
 
-f = RequirementsModelLoader('./')  
+f = RequirementsModelLoader('./models')  
 modelIndexManager = ModelIndexManager(f)        
 q = QueryManager(modelIndexManager)
-q.issueQuery("receive access retrieve authority")
+q.issueQuery("book shop")

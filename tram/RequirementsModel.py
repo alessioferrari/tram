@@ -144,7 +144,7 @@ class RequirementsModel(object):
             if child.attrib['type'] == 'goal' and child.attrib['id'] == goalID:
                 child.attrib['name'] = newGoalName 
         
-    def searchGoalbyName(self, goalName):
+    def searchGoalByName(self, goalName):
         '''
         @param goalName: name of the goal to be searched
         return: goalID, which is the unique ID of the goal, if the goal exist
@@ -157,22 +157,41 @@ class RequirementsModel(object):
                 return child.attrib['id']
         
         return -1 
+    
+    def searchGoalsBySubstring(self, goalSubstring):
+        '''
+        @param goalSubstring: a substring that shall be searched among the goal names
+        return: a list with the couples [ID, goalName] of the goals that include the @param goalSubstring
+        '''
+        root = self.tree.getroot()
+        goalDict = dict()
+
+        for child in root.iter('ENTITY'):
+            if child.attrib['type'] == 'goal' and goalSubstring in self.textFilter.lower_all(child.attrib['name']):
+                goalDict[child.attrib['id']] = child.attrib['name']
+        
+        return goalDict
 
     def saveModelAs(self, destinationFilePath):
         '''
         @param destinationFilePath: path of the file where the model shall be saved 
         '''
-        self.tree.write(destinationFilePath)
+        self.path = destinationFilePath
+        self.saveModel()
         
     def saveModel(self):
         '''
         Save the model in the same destination as the input folder
         and with the original name
         '''
+        self.tree.write(self.path)
 
-r = RequirementsModel("./models/ingolfo2011nomos.xml","/models/ingolfo2011nomos.xml")
-goalID = r.searchGoalbyName('Access health care centre')
-r.changeGoalName(goalID, 'Changed goal name')
-r.saveModelAs('./models/ingolfo2011nomosCHANGED.xml')
+#r = RequirementsModel("./models/ingolfo2011nomos.xml","/models/ingolfo2011nomos.xml")
+#goalID = r.searchGoalByName('Access health care centre')
+#print r.searchGoalsBySubstring('health')
+
+#r.changeGoalName(goalID, 'Changed goal name')
+#r.saveModelAs('./models/ingolfo2011nomosCHANGED.xml')
+#r.saveModel()
 
 

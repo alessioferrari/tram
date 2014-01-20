@@ -1,0 +1,65 @@
+<MODEL type="tropos">
+    <GROUP id="0" name="Target" type="actor">
+        <ENTITY id="1" name="Generate test cases from scenarios description" type="task">
+            <REFINEMENT type="decomposition">
+                <ENTITY id="2" name="Detect scenario changes and update test cases" type="task"/>
+                <ENTITY id="3" name="Generation of tests for different purposes" type="goal">
+                    <REFINEMENT type="Means-Ends Links">
+                        <ENTITY id="4" name="Select by UC" type="task"/>
+                        <ENTITY id="5" name="Select permanent exclusion of a test case" type="task"/>
+                        <ENTITY id="6" name="Select by UC with common steps" type="task"/>
+                        <ENTITY id="7" name="Select permanent inclusio of a test case" type="task"/>
+                        <ENTITY id="8" name="Select test cases with maximum coverage" type="task"/>
+                    </REFINEMENT>
+                </ENTITY>
+                <ENTITY id="9" name="Obtain scenario descriptions" type="goal">
+                    <REFINEMENT type="Means-Ends Links">
+                        <ENTITY id="10" name="Write scenarios on embedded editor" type="task"/>
+                        <ENTITY id="11" name="Upload formatted document" type="task"/>
+                    </REFINEMENT>
+                </ENTITY>
+                <ENTITY id="12" name="Verify scenario syntatically" type="task"/>
+                <ENTITY id="13" name="Generate artifacts of good quality" type="softgoal"/>
+                <ENTITY id="14" name="Generate an optimal tests suite" type="softgoal"/>
+            </REFINEMENT>
+        </ENTITY>
+        <ENTITY id="15" name="Market competitiveness" type="softgoal"/>
+        <RELATIONSHIP type="contribution" value="help" entityAid="2" entityBid="15"/>
+        <RELATIONSHIP type="contribution" value="help" entityAid="3" entityBid="14"/>
+        <RELATIONSHIP type="contribution" value="help" entityAid="12" entityBid="13"/>
+        <RELATIONSHIP type="contribution" value="help" entityAid="13" entityBid="15"/>
+        <RELATIONSHIP type="contribution" value="help" entityAid="14" entityBid="15"/>
+    </GROUP>
+    <GROUP id="16" name="Tester" type="actor"/>
+    <GROUP id="17" name="Tests Engineer" type="actor"/>
+    <GROUP id="18" name="Motorola" type="actor"/>
+    <GROUP id="19" name="Requirements Engineer" type="actor"/>
+    <ENTITY id="20" name="Test suite" type="resource"/>
+    <ENTITY id="21" name="Bug detection" type="goal"/>
+    <ENTITY id="22" name="Well specified test cases" type="softgoal"/>
+    <ENTITY id="23" name="Artifacts consistency" type="goal"/>
+    <ENTITY id="24" name="Test suite generated" type="goal"/>
+    <ENTITY id="25" name="Optimal tests suite" type="softgoal"/>
+    <ENTITY id="26" name="Artifact quality" type="softgoal"/>
+    <ENTITY id="27" name="Product quality" type="softgoal"/>
+    <ENTITY id="28" name="Increased productivity" type="softgoal"/>
+    <ENTITY id="29" name="Well specified scenarios" type="softgoal"/>
+    <ENTITY id="30" name="Scenario description document" type="resource"/>
+    <ENTITY id="31" name="Write scenarios" type="task"/>
+    <RELATIONSHIP type="dependency" value="24" entityAid="17" entityBid="1"/>
+    <RELATIONSHIP type="dependency" value="23" entityAid="17" entityBid="2"/>
+    <RELATIONSHIP type="dependency" value="25" entityAid="17" entityBid="14"/>
+    <RELATIONSHIP type="dependency" value="26" entityAid="17" entityBid="13"/>
+    <RELATIONSHIP type="dependency" value="26" entityAid="19" entityBid="13"/>
+    <RELATIONSHIP type="dependency" value="30" entityAid="11" entityBid="19"/>
+    <RELATIONSHIP type="dependency" value="31" entityAid="10" entityBid="19"/>
+    <RELATIONSHIP type="dependency" value="22" entityAid="16" entityBid="19"/>
+    <RELATIONSHIP type="dependency" value="27" entityAid="18" entityBid="19"/>
+    <RELATIONSHIP type="dependency" value="" entityAid="18" entityBid="15"/>
+    <RELATIONSHIP type="dependency" value="27" entityAid="18" entityBid="17"/>
+    <RELATIONSHIP type="dependency" value="28" entityAid="18" entityBid="17"/>
+    <RELATIONSHIP type="dependency" value="20" entityAid="17" entityBid="18"/>
+    <RELATIONSHIP type="dependency" value="22" entityAid="17" entityBid="18"/>
+    <RELATIONSHIP type="dependency" value="21" entityAid="18" entityBid="17"/>
+
+</MODEL>

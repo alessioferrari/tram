@@ -1,0 +1,79 @@
+<MODEL type="tropos">
+<ENTITY id="1" name="Increase return on investment (GM)" type="goal">
+	<REFINEMENT type="AND">
+		<ENTITY id="2" name="Increase sales volume" type="goal">
+			<REFINEMENT type="OR">
+				<ENTITY id="3" name="Increase customer appeal" type="goal">
+                    <REFINEMENT type="OR">
+                        <ENTITY id="4" name="Reduce operating costs" type="goal">
+                            <REFINEMENT type="OR">
+                                <ENTITY id="5" name="Lower gas price" type="goal"/>
+                                <ENTITY id="6" name="Improve miliage" type="goal"/>
+                            </REFINEMENT>
+                        </ENTITY>
+                        <ENTITY id="7" name="Lower invironment impact" type="goal"/>
+                        <ENTITY id="8" name="Lower purchase costs" type="goal">
+                            <REFINEMENT type="OR">
+                                <ENTITY id="9" name="Offer rebates" type="goal"/>
+                                <ENTITY id="10" name="Lower loan interes rates" type="goal"/>
+                                <ENTITY id="11" name="Lower sales price" type="goal"/>
+                            </REFINEMENT>
+                        </ENTITY>
+                    </REFINEMENT>
+                </ENTITY>
+                <ENTITY id="12" name="Expand markets" type="goal"/>
+			</REFINEMENT>
+        </ENTITY>
+		<ENTITY id="13" name="Increase profit per vehicle" type="goal">
+			<REFINEMENT type="OR">
+                <ENTITY id="14" name="Increase sales price" type="goal"/>
+                <ENTITY id="15" name="Increase foreign earnings" type="goal"/>
+                <ENTITY id="16" name="Lower production costs" type="goal">
+                    <REFINEMENT type="AND">
+                        <ENTITY id="17" name="Keep labour costs low" type="goal"/>
+                        <ENTITY id="18" name="Improve economies of production" type="goal">
+                            <REFINEMENT type="OR">
+                                <ENTITY id="19" name="Reduce raw materials costs" type="goal"/>
+                                <ENTITY id="20" name="Outsource units of productions" type="goal"/>
+                            </REFINEMENT>
+                        </ENTITY>
+                    </REFINEMENT>
+                </ENTITY>
+                <ENTITY id="21" name="Increase high margin sales" type="goal"/>
+            </REFINEMENT>
+        </ENTITY>
+    </REFINEMENT>
+</ENTITY>
+<ENTITY id="22" name="Increase Toyota sales" type="goal"/>
+<ENTITY id="23" name="Increase VW Sales" type="goal"/>
+<ENTITY id="24" name="Increase customer loyalty" type="goal"/>
+<ENTITY id="25" name="Improve car quality" type="goal"/>
+<ENTITY id="26" name="Improve car services" type="goal"/>
+<ENTITY id="27" name="Lower japanese interest rates" type="goal"/>
+<ENTITY id="28" name="Gas price rises" type="observable goal"/>
+<ENTITY id="29" name="US gas price rises" type="observable goal"/>
+<ENTITY id="30" name="Japanes gas price rises" type="observable goal"/>
+<ENTITY id="31" name="Japanese rates rises" type="observable goal"/>
+<ENTITY id="32" name="Yen rises" type="observable goal"/>
+<RELATIONSHIP type="contribution" value="-" entityAid="32" entityBid="30"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="29" entityBid="28"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="30" entityBid="28"/>
+<RELATIONSHIP type="contribution" value="-" entityAid="28" entityBid="5"/>
+<RELATIONSHIP type="contribution" value="-" entityAid="31" entityBid="27"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="31" entityBid="32"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="27" entityBid="11"/>
+<RELATIONSHIP type="contribution" value="--" entityAid="11" entityBid="14"/>
+<RELATIONSHIP type="contribution" value="--" entityAid="14" entityBid="11"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="18" entityBid="8"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="32" entityBid="15"/>
+<RELATIONSHIP type="contribution" value="-" entityAid="17" entityBid="25"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="14" entityBid="26"/>
+<RELATIONSHIP type="contribution" value="-" entityAid="24" entityBid="24"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="24" entityBid="2"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="25" entityBid="24"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="26" entityBid="24"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="7" entityBid="24"/>
+<RELATIONSHIP type="contribution" value="-s" entityAid="2" entityBid="22"/>
+<RELATIONSHIP type="contribution" value="-s" entityAid="22" entityBid="23"/>
+<RELATIONSHIP type="contribution" value="-s" entityAid="23" entityBid="2"/>
+</MODEL>
