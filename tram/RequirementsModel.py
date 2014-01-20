@@ -107,11 +107,11 @@ class RequirementsModel(object):
         we consider adequate for considering a sub-tree as a function. For example, if 
         the distance to a leaf is lower than 2, the node might not be a function
         '''
-        root = self.tree.getroot()
-        for group in root.iter('GROUP'):
-            for e in group.iter('ENTITY'): #a left-depth first visit is performed to get the names
-                print e.attrib['name']
-            print '\n'
+#        root = self.tree.getroot()
+#        for group in root.iter('GROUP'):
+#            for e in group.iter('ENTITY'): #a left-depth first visit is performed to get the names
+#                print e.attrib['name']
+#            print '\n'
         
     def __getModelStems(self):
         return self.modelStems.keys()
@@ -132,6 +132,47 @@ class RequirementsModel(object):
             return self.__getModelWords()
         if keyType == GOAL_STRING:
             return self.__getModelGoals()
+        
+    def changeGoalName(self, goalID, newGoalName):
+        '''
+        @param goalID: ID of the goal that shall have a new name
+        @param newGoalName: string representing the new name of the goal  
+        '''
+        root = self.tree.getroot()
 
-#r = RequirementsModel("ingolfo2011nomos.xml","ingolfo2011nomos.xml")
-#r.loadModelSubtreeNames()
+        for child in root.iter('ENTITY'):
+            if child.attrib['type'] == 'goal' and child.attrib['id'] == goalID:
+                child.attrib['name'] = newGoalName 
+        
+    def searchGoalbyName(self, goalName):
+        '''
+        @param goalName: name of the goal to be searched
+        return: goalID, which is the unique ID of the goal, if the goal exist
+                -1, if the goal is not found
+        '''
+        root = self.tree.getroot()
+
+        for child in root.iter('ENTITY'):
+            if child.attrib['type'] == 'goal' and child.attrib['name'] == goalName:
+                return child.attrib['id']
+        
+        return -1 
+
+    def saveModelAs(self, destinationFilePath):
+        '''
+        @param destinationFilePath: path of the file where the model shall be saved 
+        '''
+        self.tree.write(destinationFilePath)
+        
+    def saveModel(self):
+        '''
+        Save the model in the same destination as the input folder
+        and with the original name
+        '''
+
+r = RequirementsModel("./models/ingolfo2011nomos.xml","/models/ingolfo2011nomos.xml")
+goalID = r.searchGoalbyName('Access health care centre')
+r.changeGoalName(goalID, 'Changed goal name')
+r.saveModelAs('./models/ingolfo2011nomosCHANGED.xml')
+
+
