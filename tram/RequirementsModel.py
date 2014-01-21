@@ -6,6 +6,7 @@ Created on Jan 16, 2014
 
 from irutils.TextFilter import TextFilter
 from nltk.tokenize.treebank import TreebankWordTokenizer
+from xml.etree.ElementTree import ElementTree, Element
 import sys
 import xml.etree.ElementTree as ET
 
@@ -24,21 +25,34 @@ class RequirementsModel(object):
     during construction 
     '''
 
-    def __init__(self, inputXMLfilepath, modelID):
+    def __init__(self, modelID, inputXMLfilepath= "", type = "KAOS"):
         '''
         Constructor
+        @param modelID: identifier of the model
         @param inputXMLfilepath: path to the input XML file containing the model 
+        if this parameter is left empty a new XML tree is created
+        @param type: KAOS, TROPOS, or any other kind of model
         '''
-        self.path = inputXMLfilepath
-        self.modelID = modelID
         self.textFilter = TextFilter()
         self.wordTokenizer = TreebankWordTokenizer()
+        self.modelID = modelID
+        self.maxID = "100"  #@todo: we have to set the current maximum to the actual maximum value
+                            #for the model
         
-        self.tree =  ET.parse(self.path)
+        if not inputXMLfilepath == "":
+            self.path = inputXMLfilepath
+            
+            self.tree =  ET.parse(self.path)
         
-        self.modelGoals = self.__loadModelGoals()
-        self.modelWords = self.__loadModelWords()
-        self.modelStems = self.__loadModelStems()
+            self.modelGoals = self.__loadModelGoals()
+            self.modelWords = self.__loadModelWords()
+            self.modelStems = self.__loadModelStems()
+        else:
+            self.path = ""
+            attributes = dict()
+            attributes['type'] = type
+            root = Element("MODEL", attributes)
+            self.tree = ElementTree(root)
         
     def __loadModelGoals(self):
         '''
@@ -94,24 +108,6 @@ class RequirementsModel(object):
                     tokenizedStems[stem] = tokenizedStems[stem] + 1
                     
         return tokenizedStems
-    
-    def loadModelSubtreeNames(self):
-        '''
-        The function scans the part of the XML file where we have GROUPS.
-        When we find a group, we shall find also the names of any node 
-        that is not a leaf: each node that is not a leaf is the head 
-        of a subtree. The function stores the names of all the subtree roots,
-        together with the ID of the subtree root (i.e., the id of the goal).
-        
-        @todo: we shall consider to use a threshold for the depth that
-        we consider adequate for considering a sub-tree as a function. For example, if 
-        the distance to a leaf is lower than 2, the node might not be a function
-        '''
-#        root = self.tree.getroot()
-#        for group in root.iter('GROUP'):
-#            for e in group.iter('ENTITY'): #a left-depth first visit is performed to get the names
-#                print e.attrib['name']
-#            print '\n'
         
     def __getModelStems(self):
         return self.modelStems.keys()
@@ -178,6 +174,42 @@ class RequirementsModel(object):
                 
         
         return goalDict
+    
+    def __assignUniqueIDs(self, treeRoot):
+        '''
+        This function assigns unique IDs to all the objects 
+        of type ENTITY in @param tree
+        '''
+        currentMaxId = self.maxID
+        for child in treeRoot.iter('ENTITY'):
+            currentMaxId = str( int(currentMaxId) + 1 )
+            child.attrib['id'] = currentMaxId
+            
+        self.maxID = currentMaxId
+    
+    def insertTree(self, parentID, childTree):
+        '''
+        Given a @param childTree, which is a tree or a node, this is added as a child of parentID
+        below the first refinement of the parent. 
+        The assumption here is that each parent can have ONLY ONE TYPE of refinement.
+        The unique IDs to the child elements are dynamically assigned by the function. 
+        The childTree could be also a single node.
+        '''
+        root = self.tree.getroot()
+        
+        for child in root.iter('ENTITY'):
+            if child.attrib['id'] == parentID:
+                refinement = child.findall("REFINEMENT")
+                if refinement and len(refinement) == 1: #ONLY ONE TYPE of refinement is allowed for each element
+                    self.__assignUniqueIDs(childTree)
+                    refinement[0].append(childTree)
+                    return
+    
+    def getNodeCopy(self, nodeID):
+        '''
+        Given a nodeID this function returns a copy of such node
+        '''   
+        
 
     def saveModelAs(self, destinationFilePath):
         '''
@@ -191,14 +223,47 @@ class RequirementsModel(object):
         Save the model in the same destination as the input folder
         and with the original name
         '''
-        self.tree.write(self.path)
+        try:
+            self.tree.write(self.path)
+        except IOError:
+            print "IOError: Saving to a path that does not exist! Use saveModelAs() instead"
+        except:
+            print "An error occurred"
 
-#r = RequirementsModel("./models/ingolfo2011nomos.xml","/models/ingolfo2011nomos.xml")
-#goalID = r.searchGoalByName('Access health care centre')
+r = RequirementsModel("./models/ingolfo2011nomos.xml","./models/ingolfo2011nomos.xml")
+goalID = r.searchGoalByName('Access health care centre')
+attributes = dict()
+attributes['id'] = ''
+attributes['name'] = 'New Goal'
+attributes['type'] = 'goal'
+newElement = Element("ENTITY", attributes)
+newElement.append(Element("ENTITY", {'type': 'goal', 'name': 'ChildGoal'}))
+r.insertTree(goalID, newElement)
 #print r.searchGoalsBySubstring('health')
 
 #r.changeGoalName(goalID, 'Changed goal name')
-#r.saveModelAs('./models/ingolfo2011nomosCHANGED.xml')
+r.saveModelAs('./models/ingolfo2011nomosCHANGED.xml')
 #r.saveModel()
 
+#r = RequirementsModel("prova")
+#r.saveModelAs("prova.xml")
 
+class FunctionalityModel(RequirementsModel):
+    '''
+    This class is the same as the requirements model.
+    The only difference is that this class has solely 
+    one functionality, while RequirementsModel can have
+    several functionalities
+    '''
+    def __init__(self, modelID, inputXMLfilepath= "", type = "KAOS"):
+        super(FunctionalityModel, self).__init__(modelID, inputXMLfilepath, type)
+        
+    def getFunctionalityNode(self):
+        '''
+        This function returns the first entity below the root of the model,
+        which is expected to be the root of the functionality tree,
+        since this is a FunctionalityModel
+        '''
+        root = self.tree.getroot()
+        return root.find("ENTITY")
+        
