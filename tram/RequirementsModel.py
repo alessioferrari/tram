@@ -158,17 +158,24 @@ class RequirementsModel(object):
         
         return -1 
     
-    def searchGoalsBySubstring(self, goalSubstring):
+    def searchGoalsBySubstring(self, goalSubstring, caseSensitive = "NO"):
         '''
-        @param goalSubstring: a substring that shall be searched among the goal names
+        @param goalSubstring: a substring that shall be searched among the goal names. 
+        By default the search is not case sensitive
         return: a list with the couples [ID, goalName] of the goals that include the @param goalSubstring
         '''
         root = self.tree.getroot()
         goalDict = dict()
 
         for child in root.iter('ENTITY'):
-            if child.attrib['type'] == 'goal' and goalSubstring in self.textFilter.lower_all(child.attrib['name']):
-                goalDict[child.attrib['id']] = child.attrib['name']
+            if child.attrib['type'] == 'goal': 
+                if caseSensitive == "NO":
+                    if self.textFilter.lower_all(goalSubstring) in self.textFilter.lower_all(child.attrib['name']):
+                        goalDict[child.attrib['id']] = child.attrib['name']
+                else:
+                    if goalSubstring in child.attrib['name']:
+                        goalDict[child.attrib['id']] = child.attrib['name']
+                
         
         return goalDict
 
