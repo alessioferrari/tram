@@ -8,7 +8,7 @@ After a transformation is applied to a model, by calling the method
 transform, the model has to be saved by calling savemodelAs,
 in order not to change the original model.
 '''
-from RequirementsModel import RequirementsModel, FunctionalityModel
+from RequirementsModel import RequirementsModel
 from xml.etree.ElementTree import Element
 import re
 
@@ -68,12 +68,9 @@ class FunctionalityExtension(object):
         Then, it adds the @param functionalityModel as a child of the
         node that has nodeID as identifier
         '''
-        goalID = requirementsModel.searchGoalByName(self.nodeName)
-        functionalityNode = self.functionalityModel.getFunctionalityNode()
-        requirementsModel.insertTree(goalID, functionalityNode)
         
-r = RequirementsModel("./models/ingolfo2011nomos.xml","./models/ingolfo2011nomos.xml")
-f = FunctionalityModel('myfunctionality')
+        
+#r = RequirementsModel("./models/ingolfo2011nomos.xml","./models/ingolfo2011nomos.xml")
 
 
 #goalID = r.searchGoalByName('Access health care centre')

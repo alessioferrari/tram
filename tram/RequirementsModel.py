@@ -204,12 +204,6 @@ class RequirementsModel(object):
                     self.__assignUniqueIDs(childTree)
                     refinement[0].append(childTree)
                     return
-    
-    def getNodeCopy(self, nodeID):
-        '''
-        Given a nodeID this function returns a copy of such node
-        '''   
-        
 
     def saveModelAs(self, destinationFilePath):
         '''
@@ -230,6 +224,7 @@ class RequirementsModel(object):
         except:
             print "An error occurred"
 
+#TEST
 r = RequirementsModel("./models/ingolfo2011nomos.xml","./models/ingolfo2011nomos.xml")
 goalID = r.searchGoalByName('Access health care centre')
 attributes = dict()
@@ -248,22 +243,4 @@ r.saveModelAs('./models/ingolfo2011nomosCHANGED.xml')
 #r = RequirementsModel("prova")
 #r.saveModelAs("prova.xml")
 
-class FunctionalityModel(RequirementsModel):
-    '''
-    This class is the same as the requirements model.
-    The only difference is that this class has solely 
-    one functionality, while RequirementsModel can have
-    several functionalities
-    '''
-    def __init__(self, modelID, inputXMLfilepath= "", type = "KAOS"):
-        super(FunctionalityModel, self).__init__(modelID, inputXMLfilepath, type)
-        
-    def getFunctionalityNode(self):
-        '''
-        This function returns the first entity below the root of the model,
-        which is expected to be the root of the functionality tree,
-        since this is a FunctionalityModel
-        '''
-        root = self.tree.getroot()
-        return root.find("ENTITY")
         
