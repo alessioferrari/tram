@@ -225,22 +225,17 @@ class RequirementsModel(object):
             print "An error occurred"
 
 #TEST
-r = RequirementsModel("./models/ingolfo2011nomos.xml","./models/ingolfo2011nomos.xml")
-goalID = r.searchGoalByName('Access health care centre')
-attributes = dict()
-attributes['id'] = ''
-attributes['name'] = 'New Goal'
-attributes['type'] = 'goal'
-newElement = Element("ENTITY", attributes)
-newElement.append(Element("ENTITY", {'type': 'goal', 'name': 'ChildGoal'}))
-r.insertTree(goalID, newElement)
-#print r.searchGoalsBySubstring('health')
+#r = RequirementsModel("./models/ingolfo2011nomos.xml","./models/ingolfo2011nomos.xml")
+#goalID = r.searchGoalByName('Access health care centre')
+#attributes = dict()
+#attributes['id'] = ''
+#attributes['name'] = 'New Goal'
+#attributes['type'] = 'goal'
+#newElement = Element("ENTITY", attributes)
+#newElement.append(Element("ENTITY", {'type': 'goal', 'name': 'ChildGoal'}))
+#r.insertTree(goalID, newElement)
+#
+#r.saveModelAs('./models/ingolfo2011nomosCHANGED.xml')
 
-#r.changeGoalName(goalID, 'Changed goal name')
-r.saveModelAs('./models/ingolfo2011nomosCHANGED.xml')
-#r.saveModel()
-
-#r = RequirementsModel("prova")
-#r.saveModelAs("prova.xml")
 
         

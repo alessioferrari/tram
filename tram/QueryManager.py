@@ -41,14 +41,30 @@ class QueryManager(object):
         query, the function parses the specification and returns a
         set of QueryResult objects, which include the link to the models
         @param queryString: the specification query in the form of a string
-        @return: a list of QueryResult objects.
+        @return: a dictionary of QueryResult objects.
         '''
+        results = dict()
+        
         stems = self.__parseQuery(queryString)
         for stem in stems:
+            modelsTransformationsList = list()
+            
             models = self.modelIndexManager.searchModels(stem, STEM_STRING)
-            print stem, models
+            modelsTransformationsList = [(model, "object change") for model in models]
+            
+            results[stem] = modelsTransformationsList
+        
+        '''
+        @todo: for each model we shall understand which is the best transformation.
+        To this end, an additional class is required.
+        Currently, we always add the object change transformation together 
+        with each model found. 
+        '''
+            
+        return results
 
-f = RequirementsModelLoader('./models')  
-modelIndexManager = ModelIndexManager(f)        
-q = QueryManager(modelIndexManager)
-q.issueQuery("book shop")
+#TEST
+#f = RequirementsModelLoader('./models')  
+#modelIndexManager = ModelIndexManager(f)        
+#q = QueryManager(modelIndexManager)
+#print q.issueQuery("book shop")

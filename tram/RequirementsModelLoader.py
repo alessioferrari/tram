@@ -25,5 +25,16 @@ class RequirementsModelLoader(object):
                 self.requirementsModelList.append(requirementsModel) 
                 
     def getModels(self):
-        "Returns a list to all the models stored in the directory"
+        '''
+        Returns a list to all the models stored in the directory
+        '''
         return self.requirementsModelList
+    
+    def getModel(self, modelID):
+        '''
+        Returns the model with @param modelID
+        '''
+        for model in self.requirementsModelList:
+            if modelID == model.getModelID():
+                return model
+        
