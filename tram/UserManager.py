@@ -29,6 +29,7 @@ class UserManager(object):
         '''
         userString = "book shop"
         queryResult = self.queryManager.issueQuery(userString)
+
         oneResult = queryResult['shop'][0]
         self.modelTransformer.transform(oneResult[0],oneResult[1], {'oldObjectString':'item', 'newObjectString':'DVD'})
         print "done"
