@@ -4,6 +4,7 @@ Created on Jan 16, 2014
 @author: alessioferrari
 '''
 from ModelIndexManager import ModelIndexManager
+from QueryResult import QueryResult
 from RequirementsModel import STEM_STRING
 from RequirementsModelLoader import RequirementsModelLoader
 from irutils.TextFilter import TextFilter
@@ -43,16 +44,25 @@ class QueryManager(object):
         @param queryString: the specification query in the form of a string
         @return: a dictionary of QueryResult objects.
         '''
-        results = dict()
+        #results = dict()
+        
+        qr = QueryResult(queryString)
         
         stems = self.__parseQuery(queryString)
         for stem in stems:
-            modelsTransformationsList = list()
+            #modelsTransformationsList = list()
             
             models = self.modelIndexManager.searchModels(stem, STEM_STRING)
-            modelsTransformationsList = [(model, "object change") for model in models]
             
-            results[stem] = modelsTransformationsList
+            #modelsTransformationsList = [(model, "object change") for model in models]
+            #results[stem] = modelsTransformationsList
+            x = 0.0
+        
+            if not models == None:
+                for model in models:
+                    x = x + 0.2
+                    qr.addItem(model, model, ['object change', 'functionality extension'], 0.1 + x)
+        
         
         '''
         @todo: for each model we shall understand which is the best transformation.
@@ -60,8 +70,8 @@ class QueryManager(object):
         Currently, we always add the object change transformation together 
         with each model found. 
         '''
-            
-        return results
+        
+        return qr   
 
 #TEST
 #f = RequirementsModelLoader('./models')  

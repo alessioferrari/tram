@@ -23,22 +23,22 @@ class UserManager(object):
         self.queryManager = queryManager
         self.modelTransformer = modelTransformer
         
-    def run(self):
+    def issueQuery(self, userString):
         '''
-        This method embeds a sort of "main" function
+        This method issues the query
         '''
-        userString = "book shop"
         queryResult = self.queryManager.issueQuery(userString)
-
-        oneResult = queryResult['shop'][0]
-        self.modelTransformer.transform(oneResult[0],oneResult[1], {'oldObjectString':'item', 'newObjectString':'DVD'})
-        print "done"
+        return queryResult
+        
+        #oneResult = queryResult['shop'][0]
+        #self.modelTransformer.transform(oneResult[0],oneResult[1], {'oldObjectString':'item', 'newObjectString':'DVD'})
+        #print "done"
         
         
-
-f = RequirementsModelLoader('./models')  
-modelIndexManager = ModelIndexManager(f)        
-q = QueryManager(modelIndexManager)
-m = ModelTransformer(f)
-u = UserManager(q, m)
-u.run()
+#TEST
+#f = RequirementsModelLoader('./models')  
+#modelIndexManager = ModelIndexManager(f)        
+#q = QueryManager(modelIndexManager)
+#m = ModelTransformer(f)
+#u = UserManager(q, m)
+#u.issueQuery("book shop")
