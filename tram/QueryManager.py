@@ -56,12 +56,10 @@ class QueryManager(object):
             
             #modelsTransformationsList = [(model, "object change") for model in models]
             #results[stem] = modelsTransformationsList
-            x = 0.0
         
             if not models == None:
                 for model in models:
-                    x = x + 0.2
-                    qr.addItem(model, model, ['object change', 'functionality extension'], 0.1 + x)
+                    qr.addItem(model, model, ['object change', 'functionality extension'], 0.1)
         
         
         '''

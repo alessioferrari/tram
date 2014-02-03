@@ -4,6 +4,7 @@ Created on Jan 16, 2014
 @author: alessioferrari
 '''
 
+from ModelInfo import ModelInfo
 from irutils.TextFilter import TextFilter
 from nltk.tokenize.treebank import TreebankWordTokenizer
 from xml.etree.ElementTree import ElementTree, Element
@@ -18,6 +19,11 @@ STEM_STRING = "STEM"
 WORD_STRING = "WORD"
 GOAL_STRING = "GOAL"
 
+'''
+This is the separator for objects in the XML file
+'''
+OBJ_SEPARATOR = ", "
+
 class RequirementsModel(object):
     '''
     This class embeds the information residing in the XML
@@ -25,7 +31,7 @@ class RequirementsModel(object):
     during construction 
     '''
 
-    def __init__(self, modelID, inputXMLfilepath= "", type = "KAOS"):
+    def __init__(self, modelID, inputXMLfilepath= "", modelType="", title="", objects=[]):
         '''
         Constructor
         @param modelID: identifier of the model
@@ -34,26 +40,45 @@ class RequirementsModel(object):
         @param type: KAOS, TROPOS, or any other kind of model
         '''
         self.textFilter = TextFilter()
-        self.wordTokenizer = TreebankWordTokenizer()
-        self.modelID = modelID
+        self.wordTokenizer = TreebankWordTokenizer()        
         self.maxID = "100"  #@todo: we have to set the current maximum to the actual maximum value
                             #for the model
+        self.modelInfo = ModelInfo(modelID)
         
         if not inputXMLfilepath == "":
-            self.path = inputXMLfilepath
             
-            self.tree =  ET.parse(self.path)
+            self.modelInfo.setLocation(inputXMLfilepath)
+            
+            self.tree =  ET.parse(self.modelInfo.getLocation())
         
+            self.__loadModelInfo(self.modelInfo)
             self.modelGoals = self.__loadModelGoals()
             self.modelWords = self.__loadModelWords()
             self.modelStems = self.__loadModelStems()
         else:
-            self.path = ""
             attributes = dict()
-            attributes['type'] = type
+            attributes['type'] = modelType
+            attributes['title'] = title
+            attributes['object'] = objects
             root = Element("MODEL", attributes)
             self.tree = ElementTree(root)
+    
+    def __loadModelInfo(self, modelInfo):
+        '''
+        This function load the name of the model from the "title" field of the MODEL tag,
+        together with the type and the objects, and stores these information in the 
+        ModelInfo object
+        '''
+        root = self.tree.getroot()
         
+        modelInfo.setName(self.textFilter.lower_all(root.get("title")))
+        modelInfo.setType(self.textFilter.lower_all(root.get("type")))
+        
+        objects = root.get("object").strip().split(OBJ_SEPARATOR)
+        lowercaseObjects = [self.textFilter.lower_all(o) for o in objects]
+        modelInfo.setObjects(lowercaseObjects)   
+    
+    
     def __loadModelGoals(self):
         '''
         The function loads the goal names included in the model
@@ -118,8 +143,11 @@ class RequirementsModel(object):
     def __getModelGoals(self):
         return self.modelGoals
     
+    def getModelInfo(self):
+        return self.modelInfo
+    
     def getModelID(self):
-        return self.modelID
+        return self.modelInfo.getId()
     
     def getModelKeys(self, keyType):
         if keyType == STEM_STRING:
@@ -207,9 +235,12 @@ class RequirementsModel(object):
 
     def saveModelAs(self, destinationFilePath):
         '''
-        @param destinationFilePath: path of the file where the model shall be saved 
+        @param destinationFilePath: path of the file where the model shall be saved.
+        @todo: currently the model is saved to another location and the original location
+        is lost. Therefore, the model currently keeps the same ID. We have to change
+        this behaviour. 
         '''
-        self.path = destinationFilePath
+        self.modelInfo.setLocation(destinationFilePath) 
         self.saveModel()
         
     def saveModel(self):
@@ -218,7 +249,7 @@ class RequirementsModel(object):
         and with the original name
         '''
         try:
-            self.tree.write(self.path)
+            self.tree.write(self.modelInfo.getLocation())
         except IOError:
             print "IOError: Saving to a path that does not exist! Use saveModelAs() instead"
         except:
@@ -237,5 +268,8 @@ class RequirementsModel(object):
 #
 #r.saveModelAs('./models/ingolfo2011nomosCHANGED.xml')
 
-
-        
+#TEST
+#r = RequirementsModel("./models/morales2011technology.xml","./models/morales2011technology.xml")
+#i = r.getModelInfo()
+#print i.getName(), i.getLocation(), i.getType(), i.getObjects() 
+       
