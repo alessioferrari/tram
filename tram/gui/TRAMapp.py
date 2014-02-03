@@ -8,11 +8,11 @@ Created on Jan 29, 2014
 from ModelIndexManager import ModelIndexManager
 from ModelTransformer import ModelTransformer
 from QueryManager import QueryManager
-from QueryResultList import QUERY_RESULT, SCORE
 from RequirementsModelLoader import RequirementsModelLoader
 from Tkconstants import W, E, N, S, END
 from Tkinter import Tk, BOTH, Text, StringVar, Listbox
 from UserManager import UserManager
+from gui.ObjectChangeWizard import ObjectChangeWizard
 from ttk import Frame, Button, Style, Label, Entry, Combobox, LabelFrame
 
 class TRAMapp(Frame):
@@ -56,6 +56,7 @@ class TRAMapp(Frame):
         transformation to the model
         '''
         print self.l.get(self.l.curselection()[0])
+        o = ObjectChangeWizard(self)
         
     def __loadSelectedModel(self):
         '''

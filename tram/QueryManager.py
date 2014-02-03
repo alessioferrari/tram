@@ -5,7 +5,6 @@ Created on Jan 16, 2014
 '''
 from ModelIndexManager import ModelIndexManager
 from QueryResult import QueryResult
-from QueryResultList import QueryResultList
 from RequirementsModel import STEM_STRING
 from RequirementsModelLoader import RequirementsModelLoader
 from irutils.TextFilter import TextFilter
