@@ -1,4 +1,4 @@
-<MODEL type="tropos">
+<MODEL type="tropos" title="Healthcare data access" object="Healthcare">
     <GROUP id="0" name="Local Authoriry" type="actor">
         <ENTITY id="1" name="Access health care centre" type="goal">
             <REFINEMENT type="AND">

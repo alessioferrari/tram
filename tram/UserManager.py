@@ -27,13 +27,12 @@ class UserManager(object):
         '''
         This method issues the query
         '''
-        queryResult = self.queryManager.issueQuery(userString)
-        return queryResult
+        queryResults = self.queryManager.issueQuery(userString)
+        return queryResults
         
         #oneResult = queryResult['shop'][0]
         #self.modelTransformer.transform(oneResult[0],oneResult[1], {'oldObjectString':'item', 'newObjectString':'DVD'})
         #print "done"
-        
         
 #TEST
 #f = RequirementsModelLoader('./models')  

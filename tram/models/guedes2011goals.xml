@@ -1,4 +1,4 @@
-<MODEL type="tropos">
+<MODEL type="tropos" title="Test case generation system" object="test case, generation">
     <GROUP id="0" name="Target" type="actor">
         <ENTITY id="1" name="Generate test cases from scenarios description" type="task">
             <REFINEMENT type="decomposition">

@@ -8,6 +8,7 @@ Created on Jan 29, 2014
 from ModelIndexManager import ModelIndexManager
 from ModelTransformer import ModelTransformer
 from QueryManager import QueryManager
+from QueryResultList import QUERY_RESULT, SCORE
 from RequirementsModelLoader import RequirementsModelLoader
 from Tkconstants import W, E, N, S, END
 from Tkinter import Tk, BOTH, Text, StringVar, Listbox
@@ -26,7 +27,7 @@ class TRAMapp(Frame):
         self.userManager = userManager
         
         self.searchQuery = StringVar()
-        self.recommendationList = dict()
+        self.recommendationList = list()
         
         
         self.initUI()
@@ -34,10 +35,18 @@ class TRAMapp(Frame):
     def __findModels(self):
         '''
         The function finds the models and the transformations associated 
-        to the specification query written in the searchQuery variable  
+        to the specification query written in the searchQuery variable.
+        the results are rendered according to the structure of
+        the QueryResultList class  
         '''
         self.recommendationList = self.userManager.issueQuery(self.searchQuery.get())
-        for item in self.recommendationList:
+        
+        for recommendation in self.recommendationList:
+            
+            item = recommendation.getModelInfo().getName() + ' (' \
+            + ', '.join(recommendation.getTransformationList()) + ') ' \
+            + ' SCORE: ' + str(recommendation.getScore())
+            
             self.l.insert(END, item)
             
     def __transformModel(self):
@@ -50,10 +59,11 @@ class TRAMapp(Frame):
         
     def __loadSelectedModel(self):
         '''
-        The function loads the model currently selected
+        The function loads the model currently selected.
+        The model is identified according to its position in the recommendationList
         '''
-        selectedId = self.l.curselection()[0]
-        modelPath = self.recommendationList.getModelPath(int(selectedId))
+        selected = self.l.curselection()[0]
+        modelPath = self.recommendationList[int(selected)].getModelInfo().getLocation()
         
         # here we load the actual input file
         fp = open(modelPath, 'r')

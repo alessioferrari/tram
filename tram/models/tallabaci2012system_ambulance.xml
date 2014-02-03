@@ -1,0 +1,62 @@
+<MODEL type="KAOS" title="Ambulance system" object="ambulance">
+<ENTITY id="1" name="Support ambulance dispatching" type="goal">
+	<REFINEMENT type="AND">
+		<ENTITY id="2" name="Receive emergency call" type="goal">
+			<REFINEMENT type="AND">
+				<ENTITY id="3" name="Input emergency information" type="task"/>
+                <ENTITY id="4" name="Determine uniqueness of call" type="goal">
+                    <REFINEMENT type="OR">
+                        <ENTITY id="5" name="Mark as duplicate of recent call" type="task"/>
+                        <ENTITY id="6" name="Search call database" type="goal">
+                            <REFINEMENT type="AND">
+                                <ENTITY id="7" name="Displey similar calls" type="task"/>
+                                <ENTITY id="8" name="Mark as unique or duplicate" type="task"/>
+                            </REFINEMENT>
+                        </ENTITY>
+                    </REFINEMENT>
+                </ENTITY>
+				<ENTITY id="9" name="Communication network working" type="domain assumption"/>
+                <ENTITY id="10" name="Send to disparchers" type="task"/>
+			</REFINEMENT>
+		</ENTITY>
+		<ENTITY id="11" name="Dispatch ambulance" type="goal">
+			<REFINEMENT type="AND">
+                <ENTITY id="12" name="Prioritize calls" type="task"/>
+				<ENTITY id="13" name="Select ambulance" type="goal">
+					<REFINEMENT type="AND">
+						<ENTITY id="14" name="Locate available ambulances" type="task"/>
+						<ENTITY id="15" name="Get traffic information" type="task"/>
+						<ENTITY id="16" name="Select best ambulance" type="task"/>
+					</REFINEMENT>
+				</ENTITY>
+				<ENTITY id="17" name="Inform driver" type="task"/>
+			</REFINEMENT>
+		</ENTITY>
+		<ENTITY id="18" name="Update ambulance status" type="goal">
+			<REFINEMENT type="OR">
+				<ENTITY id="19" name="Periodical update" type="goal">
+					<REFINEMENT type="OR">
+						<ENTITY id="20" name="Update automatically" type="task"/>
+						<ENTITY id="21" name="Update manually" type="task"/>
+					</REFINEMENT>
+				</ENTITY>
+                <ENTITY id="22" name="Update during response" type="goal">
+					<REFINEMENT type="AND">
+						<ENTITY id="23" name="Update arrival at site" type="task"/>
+						<ENTITY id="24" name="Update arrival at hospital" type="task"/>
+					</REFINEMENT>
+				</ENTITY>
+			</REFINEMENT>
+		</ENTITY>
+    </REFINEMENT>
+</ENTITY>
+<ENTITY id="25" name="Fast assistance" type="softgoal"/>
+<ENTITY id="26" name="Unambiguity" type="softgoal"/>
+<ENTITY id="27" name="Prioritized information" type="softgoal"/>
+<ENTITY id="28" name="Proximity" type="softgoal"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="1" entityBid="25"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="12" entityBid="27"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="4" entityBid="26"/>
+<RELATIONSHIP type="contribution" value="+" entityAid="13" entityBid="28"/>
+<RELATIONSHIP type="contribution" value="-" entityAid="21" entityBid="28"/>
+</MODEL>

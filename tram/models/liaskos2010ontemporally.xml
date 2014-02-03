@@ -1,4 +1,4 @@
-<MODEL type="KAOS">
+<MODEL type="KAOS" title="Meeting scheduler" object="meeting">
 <ENTITY id="1" name="Meeting scheduled" type="goal">
 	<REFINEMENT type="AND">
 		<ENTITY id="2" name="Constraints gathered" type="goal">

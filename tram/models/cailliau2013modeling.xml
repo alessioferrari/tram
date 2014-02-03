@@ -1,0 +1,34 @@
+<MODEL type="KAOS" title="car crash management system" object="car, crash">
+<ENTITY id="1" name="Achieve (Crisis resolved when reported)" type="goal">
+	<REFINEMENT type="AND">
+		<ENTITY id="2" name="Achieve (Crisis requirements known when crisis reported)" type="requirement"/>
+		<ENTITY id="3" name="Achieve (route plan agreement reached when requirements known)" type="goal">
+			<REFINEMENT type="AND">
+				<ENTITY id="4" name="Achieve (Route Plan built when crisis requirements known)" type="goal">
+					<REFINEMENT type="AND">
+						<ENTITY id="5" name="Mantain (Veichle positions and availabilities accurately known at police station when requirements known)" type="requirement"/>
+						<ENTITY id="6" name="Achieve (Route Plan built from known requirements, vehicle positions and availabilities)" type="goal">
+                            <REFINEMENT type="AND">
+                                <ENTITY id="7" name="Achieve (Route plan draft proposed from known requirements, vehicles and availabilities)" type="requirement"/>
+                                <ENTITY id="8" name="Achieve (Route Plan draft consolidated when proposed)" type="goal">
+                                    <REFINEMENT type="OR">
+                                        <ENTITY id="9" name="Achieve (police contraints provided when route plan draft proposed" type="requirement"/>
+                                        <ENTITY id="10" name="Achieve (fireman constraints provided when route plan draft proposed" type="requirement"/>
+                                        <ENTITY id="11" name="Mantain (Real-time draft consolidation from provided constraints" type="requirement"/>
+                                        <ENTITY id="12" name="Achieve (Police and fireman constraints provided when route plan draft proposed" type="requirement"/>
+                                    </REFINEMENT>
+                                </ENTITY>
+
+                                <ENTITY id="13" name="Achieve(Route plan draft eventually promoted to route plan)" type="requirement"/>
+                            </REFINEMENT>
+                        </ENTITY>
+
+					</REFINEMENT>
+				</ENTITY>
+				<ENTITY id="14" name="Achieve (Route plan eventually agreed when built)" type="requirement"/>
+			</REFINEMENT>
+		</ENTITY>
+        <ENTITY id="15" name="Achieve (Crisis resolved when route plan agreement reached)" type="requirement"/>
+    </REFINEMENT>
+</ENTITY>
+</MODEL>

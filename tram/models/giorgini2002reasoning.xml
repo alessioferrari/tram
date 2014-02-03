@@ -1,4 +1,4 @@
-<MODEL type="tropos">
+<MODEL type="tropos" title="Strategic objectives of a car manufacturer" object="car, manufacturer">
 <ENTITY id="1" name="Increase return on investment (GM)" type="goal">
 	<REFINEMENT type="AND">
 		<ENTITY id="2" name="Increase sales volume" type="goal">

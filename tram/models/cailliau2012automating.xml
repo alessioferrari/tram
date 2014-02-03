@@ -1,0 +1,36 @@
+<MODEL type="KAOS" title="ambulance system" object="ambulance">
+<ENTITY id="1" name="Inc Happened, Inc Resolved" type="goal">
+	<REFINEMENT type="AND">
+		<ENTITY id="2" name="Inc Happened, Call Reporting Inc" type="requirement"/>
+		<ENTITY id="3" name="Call Reporting Inc, Ambulance Intervention" type="goal">
+			<REFINEMENT type="AND">
+				<ENTITY id="4" name="Call Reporting Inc, Ambulance Mobilization" type="goal">
+					<REFINEMENT type="AND">
+						<ENTITY id="5" name="Call Reporting Inc, Incident form encoding" type="requirement"/>
+						<ENTITY id="6" name="Incident form encoded, Ambulance mobilization" type="goal">
+                            <REFINEMENT type="AND">
+                                <ENTITY id="7" name="Incident form encoded, Ambulance allocation" type="requirement"/>
+                                <ENTITY id="8" name="Ambulance allocation, Ambulance Mobilitization" type="goal">
+                                    <REFINEMENT type="AND">
+                                        <ENTITY id="9" name="Ambulance on road, Ambulance allocation, Ambulance mobilitization" type="requirement"/>
+                                        <ENTITY id="10" name="mbulance on road, Ambulance allocation, Ambulance mobilitization" type="goal">
+                                            <REFINEMENT type="AND">
+                                                <ENTITY id="11" name="Ambulance on road, Ambulance allocation, AMob order sent" type="requirement"/>
+                                                <ENTITY id="12" name="Mob order sent, mob order printed" type="requirement"/>
+                                                <ENTITY id="13" name="Mob order printed, ambulance mobilization" type="requirement"/>
+                                            </REFINEMENT>
+                                        </ENTITY>
+                                        <ENTITY id="14" name="Ambulance at station, Ambulance on road" type="requirement"/>
+                                    </REFINEMENT>
+                                </ENTITY>
+                            </REFINEMENT>
+                        </ENTITY>
+					</REFINEMENT>
+				</ENTITY>
+               <ENTITY id="15" name="Ambulance Mobilization, Ambulance Intervention" type="requirement"/>
+			</REFINEMENT>
+		</ENTITY>
+        <ENTITY id="16" name="Ambulance Intervention, Incident resolved" type="requirement"/>
+    </REFINEMENT>
+</ENTITY>
+</MODEL>

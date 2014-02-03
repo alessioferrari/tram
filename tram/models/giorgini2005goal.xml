@@ -1,4 +1,4 @@
-<MODEL type="tropos">
+<MODEL type="tropos" title="media shop" object="item">
     <GROUP id="0" name="Media" type="actor">
         <ENTITY id="1" name="Manage internet shop" type="goal">
             <REFINEMENT type="AND">

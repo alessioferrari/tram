@@ -1,0 +1,85 @@
+<MODEL type="tropos" title="Library management system" object="library, book">
+    <GROUP id="0" name="Library" type="actor">
+        <ENTITY id="1" name="Material checking-out managed" type="goal">
+            <REFINEMENT type="Means-Ends Links">
+                <ENTITY id="2" name="Manage checking-out" type="task">
+                    <REFINEMENT type="Decomposition">
+                        <ENTITY id="3" name="Unobtrusive checking-out management" type="softgoal"/>
+                        <ENTITY id="4" name="Accurate checking out management" type="softgoal"/>
+                        <ENTITY id="5" name="Reliable checking-out management" type="softgoal"/>
+                        <ENTITY id="6" name="Fast checking-out management" type="softgoal"/>
+                        <ENTITY id="7" name="Material checking-out executed" type="softgoal">
+                            <REFINEMENT type="Means-Ends Links">
+                                <ENTITY id="8" name="Run material checking-out" type="task">
+                                    <REFINEMENT type="Decomposition">
+                                        <ENTITY id="9" name="Approve checkout" type="task">
+                                            <REFINEMENT type="Decomposition">
+                                                <ENTITY id="10" name="Validate patron identification" type="task"/>
+                                                <ENTITY id="11" name="Validate material availavility" type="task"/>
+                                            </REFINEMENT>
+                                        </ENTITY>
+                                        <ENTITY id="12" name="Create check-out ticket" type="task"/>
+                                        <ENTITY id="13" name="Register check-out" type="task"/>
+                                    </REFINEMENT>
+                                </ENTITY>
+                            </REFINEMENT>
+                        </ENTITY>
+                    </REFINEMENT>
+                </ENTITY>
+            </REFINEMENT>
+        </ENTITY>
+    </GROUP>
+    <GROUP id="14" name="Library patron" type="actor"/>
+    <ENTITY id="15" name="Library card" type="resource"/>
+    <ENTITY id="16" name="Tagged object" type="resource"/>
+    <ENTITY id="17" name="Material to check-out" type="resource"/>
+    <ENTITY id="18" name="Info associated to tagged object" type="resource"/>
+    <ENTITY id="19" name="Check-out ticket" type="resource"/>
+    <ENTITY id="20" name="Library material checked-out" type="goal"/>
+    <ENTITY id="21" name="Tagged object entered into cov. zone" type="goal"/>
+    <ENTITY id="22" name="Wireless object ident. performed" type="goal"/>
+    <ENTITY id="23" name="Library card kept actual" type="softgoal"/>
+    <ENTITY id="24" name="Fast checking-out" type="softgoal"/>
+    <ENTITY id="25" name="Easy checking-out" type="softgoal"/>
+    <ENTITY id="26" name="Unobtrusive checking-out" type="softgoal"/>
+    <ENTITY id="27" name="Confident checking-out" type="softgoal"/>
+    <ENTITY id="28" name="Fast object identification" type="softgoal"/>
+    <ENTITY id="29" name="Easy object identification" type="softgoal"/>
+    <ENTITY id="30" name="Safety information storage" type="softgoal"/>
+    <ENTITY id="31" name="Accurate object identification" type="softgoal"/>
+    <ENTITY id="32" name="Careful handling of tag" type="softgoal"/>
+    <ENTITY id="33" name="Unobtrusive object identification" type="softgoal"/>
+
+    <RELATIONSHIP type="dependency" value="20" entityAid="14" entityBid="7"/>
+    <RELATIONSHIP type="dependency" value="24" entityAid="14" entityBid="7"/>
+    <RELATIONSHIP type="dependency" value="25" entityAid="14" entityBid="7"/>
+    <RELATIONSHIP type="dependency" value="26" entityAid="14" entityBid="7"/>
+    <RELATIONSHIP type="dependency" value="27" entityAid="14" entityBid="7"/>
+    <RELATIONSHIP type="dependency" value="23" entityAid="14" entityBid="10"/>
+    <RELATIONSHIP type="dependency" value="15" entityAid="14" entityBid="10"/>
+    <RELATIONSHIP type="dependency" value="17" entityAid="14" entityBid="11"/>
+    <RELATIONSHIP type="dependency" value="19" entityAid="14" entityBid="12"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="30" entityBid="27"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="33" entityBid="26"/>
+    <RELATIONSHIP type="contribution" value="-" entityAid="32" entityBid="26"/>
+    <RELATIONSHIP type="contribution" value="-" entityAid="33" entityBid="25"/>
+    <RELATIONSHIP type="contribution" value="-" entityAid="21" entityBid="26"/>
+    <RELATIONSHIP type="contribution" value="-" entityAid="21" entityBid="25"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="29" entityBid="25"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="28" entityBid="24"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="18" entityBid="28"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="18" entityBid="19"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="18" entityBid="11"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="16" entityBid="15"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="16" entityBid="17"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="22" entityBid="7"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="28" entityBid="6"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="31" entityBid="4"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="32" entityBid="3"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="33" entityBid="3"/>
+    <RELATIONSHIP type="contribution" value="+" entityAid="21" entityBid="3"/>
+
+
+
+
+    </MODEL>

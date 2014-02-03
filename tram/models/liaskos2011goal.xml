@@ -1,4 +1,4 @@
-<MODEL type="KAOS">
+<MODEL type="KAOS" title="Online shop" object="item">
 <ENTITY id="1" name="Shop on-line" type="goal">
 	<REFINEMENT type="AND">
         <ENTITY id="2" name="Login" type="requirement"/>

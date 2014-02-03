@@ -1,4 +1,4 @@
-<MODEL type="KAOS">
+<MODEL type="KAOS" title="Book seller" object="book">
 <ENTITY id="1" name="Fulfill book order" type="goal">
 	<REFINEMENT type="AND">
 		<ENTITY id="2" name="Quote given" type="goal">

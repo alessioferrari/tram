@@ -1,4 +1,4 @@
-<MODEL type="KAOS">
+<MODEL type="KAOS" title="Trentino public transport service" object="means of transport">
 <ENTITY id="1" name="Supply public transport service" type="goal">
 	<REFINEMENT type="AND">
 		<ENTITY id="2" name="Manage financial budget" type="goal">

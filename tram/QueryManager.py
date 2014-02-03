@@ -5,6 +5,7 @@ Created on Jan 16, 2014
 '''
 from ModelIndexManager import ModelIndexManager
 from QueryResult import QueryResult
+from QueryResultList import QueryResultList
 from RequirementsModel import STEM_STRING
 from RequirementsModelLoader import RequirementsModelLoader
 from irutils.TextFilter import TextFilter
@@ -46,21 +47,24 @@ class QueryManager(object):
         '''
         #results = dict()
         
-        qr = QueryResult(queryString)
+        qr = list()
         
         stems = self.__parseQuery(queryString)
         for stem in stems:
             #modelsTransformationsList = list()
             
-            models = self.modelIndexManager.searchModels(stem, STEM_STRING)
+            modelsInfos = self.modelIndexManager.searchModels(stem, STEM_STRING)
             
             #modelsTransformationsList = [(model, "object change") for model in models]
             #results[stem] = modelsTransformationsList
         
-            if not models == None:
-                for model in models:
-                    qr.addItem(model, model, ['object change', 'functionality extension'], 0.1)
-        
+            if not modelsInfos == None:
+                for modelInfo in modelsInfos:
+                    score = 0.1
+                    qr.append(QueryResult(modelInfo, ['object change'], score))
+                    
+            qr.sort(key=lambda x: x.score) #the list is ordered by the score attribute and reversed
+            qr.reverse()
         
         '''
         @todo: for each model we shall understand which is the best transformation.
