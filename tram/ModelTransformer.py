@@ -4,6 +4,7 @@ Created on Jan 20, 2014
 @author: alessioferrari
 '''
 from ModelTransformations import ObjectChangeTransformation
+OBJECT_CHANGE = "object change"
 
 class ModelTransformer(object):
     '''
@@ -26,7 +27,7 @@ class ModelTransformer(object):
         @param transformationString: Id associated to the ModelTransformation
         @param transformationPars: parameters of the transformation stored in a dictionary 
         '''
-        if transformationString == "object change":
+        if transformationString == OBJECT_CHANGE:
             t = ObjectChangeTransformation(transformationPars['oldObjectString'], transformationPars['newObjectString'])
             requirementsModel = self.requirementsModelLoader.getModel(modelID)
             t.transform(requirementsModel)

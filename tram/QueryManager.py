@@ -7,6 +7,7 @@ from ModelIndexManager import ModelIndexManager
 from QueryResult import QueryResult
 from RequirementsModel import STEM_STRING
 from RequirementsModelLoader import RequirementsModelLoader
+from TransformationRecommender import TransformationRecommender
 from irutils.TextFilter import TextFilter
 from nltk.tokenize.treebank import TreebankWordTokenizer
 
@@ -25,6 +26,7 @@ class QueryManager(object):
         self.textFilter = TextFilter()
         self.modelIndexManager = modelIndexManager
         self.wordTokenizer = TreebankWordTokenizer()
+        self.tRecommender = TransformationRecommender() 
         
     def __parseQuery(self, queryString):
         '''
@@ -42,15 +44,12 @@ class QueryManager(object):
         query, the function parses the specification and returns a
         set of QueryResult objects, which include the link to the models
         @param queryString: the specification query in the form of a string
-        @return: a dictionary of QueryResult objects.
+        @return: a list of QueryResult objects.
         '''
-        #results = dict()
-        
         qr = list()
         
         stems = self.__parseQuery(queryString)
         for stem in stems:
-            #modelsTransformationsList = list()
             
             modelsInfos = self.modelIndexManager.searchModels(stem, STEM_STRING)
             
@@ -60,7 +59,8 @@ class QueryManager(object):
             if not modelsInfos == None:
                 for modelInfo in modelsInfos:
                     score = 0.1
-                    qr.append(QueryResult(modelInfo, ['object change'], score))
+                    transformation = self.tRecommender.getRecommendedTransformation(modelInfo, queryString)
+                    qr.append(QueryResult(modelInfo, [transformation], score))
                     
             qr.sort(key=lambda x: x.score) #the list is ordered by the score attribute and reversed
             qr.reverse()

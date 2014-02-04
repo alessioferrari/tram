@@ -61,12 +61,10 @@ class TRAMapp(Frame):
         selected = self.l.curselection()[0]
         oldObject = self.recommendationList[int(selected)].getModelInfo().getObjects()[0]
         o = ObjectChangeWizard(self, [oldObject])
-        print o.result['oldObjectString']
-        print o.result['newObjectString']
+        
         #result is the dictionary with the parameters to be passed to the transformation
-        #check if the user decided to transform#
-        #check if the data provided are ok#
-        self.userManager.transformModel(self.recommendationList[int(selected)].getModelInfo().getId() \
+        if o.result:
+            self.userManager.transformModel(self.recommendationList[int(selected)].getModelInfo().getId() \
                                         , "object change", o.result)
         
     def __loadSelectedModel(self):
