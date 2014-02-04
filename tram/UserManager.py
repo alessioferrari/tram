@@ -34,6 +34,8 @@ class UserManager(object):
         #self.modelTransformer.transform(oneResult[0],oneResult[1], {'oldObjectString':'item', 'newObjectString':'DVD'})
         #print "done"
         
+    def transformModel(self, modelID, transformationString, transformationPars):
+        self.modelTransformer.transform(modelID, transformationString, transformationPars)
 #TEST
 #f = RequirementsModelLoader('./models')  
 #modelIndexManager = ModelIndexManager(f)        

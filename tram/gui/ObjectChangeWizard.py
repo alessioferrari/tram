@@ -20,7 +20,7 @@ class ObjectChangeWizard(tkSimpleDialog.Dialog):
 
         self.e1 = Entry(master)
         self.e1.delete(0, END)
-        self.e1.insert(0, "old")
+        self.e1.insert(0, self.data[0])
         self.e2 = Entry(master)
 
         self.e1.grid(row=1, column=1)
@@ -30,9 +30,11 @@ class ObjectChangeWizard(tkSimpleDialog.Dialog):
     def apply(self):
         first = str(self.e1.get())
         second = str(self.e2.get())
-        print first, second # or something
-           
+        self.result['oldObjectString'] = first
+        self.result['newObjectString'] = second
 
+    #def getResult(self):
+    #    return self.result
 #root = Tk()
 #Button(root, text="Hello!").pack()
 #root.update()

@@ -8,17 +8,20 @@ import os
 
 class Dialog(Toplevel):
 
-    def __init__(self, parent, title = None):
+    def __init__(self, parent, data, title = None):
 
         Toplevel.__init__(self, parent)
         self.transient(parent)
 
         if title:
             self.title(title)
+        
+        
+        self.data = data
 
         self.parent = parent
 
-        self.result = None
+        self.result = dict()
 
         body = Frame(self)
         self.initial_focus = self.body(body)

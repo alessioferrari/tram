@@ -34,11 +34,22 @@ class ObjectChangeTransformation(object):
         with newObjectString
         '''
         goalsDict = requirementsModel.searchGoalsBySubstring(self.oldObjectString)
+        insensitiveOldObjectString = re.compile(re.escape(self.oldObjectString), re.IGNORECASE)
+        
         for goalID in goalsDict.keys():
-            insensitiveOldObjectString = re.compile(re.escape(self.oldObjectString), re.IGNORECASE)
             newName = insensitiveOldObjectString.sub(self.newObjectString, goalsDict[goalID])
             requirementsModel.changeGoalName(goalID, newName)
-
+        
+        #changing the title#
+        oldTitle = requirementsModel.getModelInfo().getName()
+        newTitle = insensitiveOldObjectString.sub(self.newObjectString, oldTitle) 
+        requirementsModel.changeTitle(newTitle)
+        
+        #changing the specific object
+        oldObjList = requirementsModel.getModelInfo().getObjects()
+        newObjList = [w.replace(self.oldObjectString, self.newObjectString) for w in oldObjList]
+        requirementsModel.changeObjects(newObjList)
+        
 #TEST        
 #r = RequirementsModel("./models/ingolfo2011nomos.xml","/models/ingolfo2011nomos.xml")
 #t = ObjectChangeTransformation('health care','fitness')

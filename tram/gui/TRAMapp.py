@@ -29,7 +29,6 @@ class TRAMapp(Frame):
         self.searchQuery = StringVar()
         self.recommendationList = list()
         
-        
         self.initUI()
         
     def __findModels(self):
@@ -53,10 +52,22 @@ class TRAMapp(Frame):
         '''
         The function takes the item that has been selected from the list
         of recommended models and transformations and applies the
-        transformation to the model
+        transformation to the model. 
+        
+        @todo By now, only one object can be changed: a strategy for
+        changing multiple objects has to be defined
         '''
-        print self.l.get(self.l.curselection()[0])
-        o = ObjectChangeWizard(self)
+        
+        selected = self.l.curselection()[0]
+        oldObject = self.recommendationList[int(selected)].getModelInfo().getObjects()[0]
+        o = ObjectChangeWizard(self, [oldObject])
+        print o.result['oldObjectString']
+        print o.result['newObjectString']
+        #result is the dictionary with the parameters to be passed to the transformation
+        #check if the user decided to transform#
+        #check if the data provided are ok#
+        self.userManager.transformModel(self.recommendationList[int(selected)].getModelInfo().getId() \
+                                        , "object change", o.result)
         
     def __loadSelectedModel(self):
         '''

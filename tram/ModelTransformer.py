@@ -30,5 +30,5 @@ class ModelTransformer(object):
             t = ObjectChangeTransformation(transformationPars['oldObjectString'], transformationPars['newObjectString'])
             requirementsModel = self.requirementsModelLoader.getModel(modelID)
             t.transform(requirementsModel)
-            requirementsModel.saveModelAs('CHANGED.xml')
+            requirementsModel.saveModelAs('CHANGED1.xml')
             print "model has been transformed"

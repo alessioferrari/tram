@@ -157,6 +157,31 @@ class RequirementsModel(object):
         if keyType == GOAL_STRING:
             return self.__getModelGoals()
         
+    def changeTitle(self, newTitle):
+        '''
+        This function shall change the title of the model, 
+        which means changing the modelInfo and the XML
+        of the model
+        '''
+        #self.modelInfo.setName(newTitle)
+        
+        root = self.tree.getroot()
+        root.set("title", newTitle)
+        self.__loadModelInfo(self.modelInfo) #the function updates the modelInfo structure
+    
+    def changeObjects(self, newObjectsList):
+        '''
+        This function shall change the objects of the model,
+        which means changing the modelInfo 
+        but also the XML of the model
+        '''
+        
+        root = self.tree.getroot()
+        
+        newObjects = ' ,'.join([o for o in newObjectsList])
+        root.set("object", newObjects)  
+        self.__loadModelInfo(self.modelInfo)
+        
     def changeGoalName(self, goalID, newGoalName):
         '''
         @param goalID: ID of the goal that shall have a new name
