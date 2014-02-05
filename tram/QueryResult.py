@@ -19,6 +19,7 @@ class QueryResult(object):
         self.score = score
         
     def getModelInfo(self):
+        
         return self.modelInfo
     
     def getTransformationList(self):
