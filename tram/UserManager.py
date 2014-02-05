@@ -35,7 +35,8 @@ class UserManager(object):
         #print "done"
         
     def transformModel(self, modelID, transformationString, transformationPars):
-        self.modelTransformer.transform(modelID, transformationString, transformationPars)
+        modelPath = self.modelTransformer.transform(modelID, transformationString, transformationPars)
+        return modelPath
 #TEST
 #f = RequirementsModelLoader('./models')  
 #modelIndexManager = ModelIndexManager(f)        

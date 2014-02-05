@@ -125,12 +125,12 @@ class RequirementsModel(object):
         tokenizedStems = dict()
         
         if not self.modelWords == None:
-            for w in self.modelWords:
+            for w in self.modelWords.keys():
                 stem = self.textFilter.filter_all(w)
                 if not tokenizedStems.has_key(stem):
-                    tokenizedStems[stem] = 1
+                    tokenizedStems[stem] = self.modelWords[w]
                 else:
-                    tokenizedStems[stem] = tokenizedStems[stem] + 1
+                    tokenizedStems[stem] = tokenizedStems[stem] + self.modelWords[w]
                     
         return tokenizedStems
         
@@ -142,6 +142,12 @@ class RequirementsModel(object):
     
     def __getModelGoals(self):
         return self.modelGoals
+    
+    def __getModelStemsAndFreq(self):
+        return self.modelStems
+    
+    def __getModelWordsAndFreq(self):
+        return self.modelWords
     
     def getModelInfo(self):
         return self.modelInfo
@@ -155,7 +161,16 @@ class RequirementsModel(object):
         if keyType == WORD_STRING:
             return self.__getModelWords()
         if keyType == GOAL_STRING:
-            return self.__getModelGoals()
+            return self.__getModelGoals() 
+        
+    def getModelKeysAndFrequencies(self, keyType):
+        if keyType == STEM_STRING:
+            return self.__getModelStemsAndFreq()
+        if keyType == WORD_STRING:
+            return self.__getModelWordsAndFreq()
+        if keyType == GOAL_STRING:
+            return dict(zip(self.__getModelGoals()), [1] * (len(self.__getModelGoals())) )
+            
         
     def changeTitle(self, newTitle):
         '''
@@ -297,4 +312,7 @@ class RequirementsModel(object):
 #r = RequirementsModel("./models/morales2011technology.xml","./models/morales2011technology.xml")
 #i = r.getModelInfo()
 #print i.getName(), i.getLocation(), i.getType(), i.getObjects() 
+
+r = RequirementsModel("./models/morales2011technology.xml","./models/morales2011technology.xml")
+print r.getModelKeysAndFrequencies(WORD_STRING)
        

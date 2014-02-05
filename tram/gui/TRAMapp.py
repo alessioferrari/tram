@@ -14,6 +14,7 @@ from Tkinter import Tk, BOTH, Text, StringVar, Listbox
 from UserManager import UserManager
 from gui.ObjectChangeWizard import ObjectChangeWizard
 from ttk import Frame, Button, Style, Label, Entry, Combobox, LabelFrame
+import tkMessageBox
 
 class TRAMapp(Frame):
     '''
@@ -40,6 +41,8 @@ class TRAMapp(Frame):
         '''
         self.recommendationList = self.userManager.issueQuery(self.searchQuery.get())
         
+        self.l.delete(0, END)
+        
         for recommendation in self.recommendationList:
             
             item = recommendation.getModelInfo().getName() + ' (' \
@@ -57,29 +60,39 @@ class TRAMapp(Frame):
         @todo By now, only one object can be changed: a strategy for
         changing multiple objects has to be defined
         '''
+        if not self.l.size() == 0 and self.l.curselection():
+            
+            #we always perform the object change
         
-        selected = self.l.curselection()[0]
-        oldObject = self.recommendationList[int(selected)].getModelInfo().getObjects()[0]
-        o = ObjectChangeWizard(self, [oldObject])
+            selected = self.l.curselection()[0]
+            oldObject = self.recommendationList[int(selected)].getModelInfo().getObjects()[0]
+            o = ObjectChangeWizard(self, [oldObject])
         
-        #result is the dictionary with the parameters to be passed to the transformation
-        if o.result:
-            self.userManager.transformModel(self.recommendationList[int(selected)].getModelInfo().getId() \
+            #result is the dictionary with the parameters to be passed to the transformation
+            if o.result:
+                modelPath = self.userManager.transformModel(self.recommendationList[int(selected)].getModelInfo().getId() \
                                         , "object change", o.result)
+                tkMessageBox.showinfo("Info", "model saved in " + modelPath)
+                fp = open(modelPath, 'r')
+                file_text = fp.read()
+                self.t.insert('0.0', file_text)
+                fp.close()
         
     def __loadSelectedModel(self):
         '''
         The function loads the model currently selected.
         The model is identified according to its position in the recommendationList
         '''
-        selected = self.l.curselection()[0]
-        modelPath = self.recommendationList[int(selected)].getModelInfo().getLocation()
+        if not self.l.size() == 0 and self.l.curselection():
         
-        # here we load the actual input file
-        fp = open(modelPath, 'r')
-        file_text = fp.read()
-        self.t.insert('0.0', file_text)
-        fp.close()
+            selected = self.l.curselection()[0]
+            modelPath = self.recommendationList[int(selected)].getModelInfo().getLocation()
+        
+            # here we load the actual input file
+            fp = open(modelPath, 'r')
+            file_text = fp.read()
+            self.t.insert('0.0', file_text)
+            fp.close()
         
         
     def initUI(self):

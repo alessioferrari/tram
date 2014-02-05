@@ -4,6 +4,7 @@ Created on Jan 20, 2014
 @author: alessioferrari
 '''
 from ModelTransformations import ObjectChangeTransformation
+import os
 OBJECT_CHANGE = "object change"
 
 class ModelTransformer(object):
@@ -31,5 +32,7 @@ class ModelTransformer(object):
             t = ObjectChangeTransformation(transformationPars['oldObjectString'], transformationPars['newObjectString'])
             requirementsModel = self.requirementsModelLoader.getModel(modelID)
             t.transform(requirementsModel)
-            requirementsModel.saveModelAs('CHANGED1.xml')
-            print "model has been transformed"
+            modelPath = os.path.splitext(requirementsModel.getModelInfo().getLocation())[0] + transformationPars['newObjectString'] + '.xml'
+            requirementsModel.saveModelAs(modelPath)
+            
+            return modelPath
